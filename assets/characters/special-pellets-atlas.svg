@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="128" viewBox="0 0 384 128">
+  <title>Neon Maze special pellets atlas</title>
+  <desc>12 transparent 64-pixel frames for special power pellets.</desc>
+  <defs>
+    <g id="pellet-sun">
+      <circle cx="32" cy="32" r="10" fill="#ffe477"/>
+      <circle cx="32" cy="32" r="14" fill="#ffd94d" opacity="0.3"/>
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="pellet-frost">
+      <circle cx="32" cy="32" r="10" fill="#a8f5ff"/>
+      <circle cx="32" cy="32" r="14" fill="#438bff" opacity="0.3"/>
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="pellet-spark">
+      <circle cx="32" cy="32" r="10" fill="#ff9b50"/>
+      <circle cx="32" cy="32" r="14" fill="#ffe477" opacity="0.3"/>
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="pellet-arc">
+      <circle cx="32" cy="32" r="10" fill="#ba9cff"/>
+      <circle cx="32" cy="32" r="14" fill="#e4d9ff" opacity="0.3"/>
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="pellet-wisp">
+      <circle cx="32" cy="32" r="10" fill="#53e2b4"/>
+      <circle cx="32" cy="32" r="14" fill="#2ebd8c" opacity="0.3"/>
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="pellet-star">
+      <path d="M32 8 L 34.5 20 L 42 20 L 35 26 L 38 34 L 32 30 L 26 34 L 29 26 L 22 20 L 29.5 20 Z" fill="#ffd94d"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="3s" repeatCount="indefinite"/>
+    </g>
+  </defs>
+  <g transform="translate(0 0)"><use href="#pellet-sun"/></g>
+  <g transform="translate(64 0)"><use href="#pellet-frost"/></g>
+  <g transform="translate(128 0)"><use href="#pellet-spark"/></g>
+  <g transform="translate(192 0)"><use href="#pellet-arc"/></g>
+  <g transform="translate(256 0)"><use href="#pellet-wisp"/></g>
+  <g transform="translate(320 0)"><use href="#pellet-star"/></g>
+  <g transform="translate(0 64)"><use href="#pellet-sun"/></g>
+  <g transform="translate(64 64)"><use href="#pellet-frost"/></g>
+  <g transform="translate(128 64)"><use href="#pellet-spark"/></g>
+  <g transform="translate(192 64)"><use href="#pellet-arc"/></g>
+  <g transform="translate(256 64)"><use href="#pellet-wisp"/></g>
+  <g transform="translate(320 64)"><use href="#pellet-star"/></g>
+</svg>

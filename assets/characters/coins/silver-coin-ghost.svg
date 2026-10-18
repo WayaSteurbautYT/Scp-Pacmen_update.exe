@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="silvercoin-ghost-body" x1=".22" y1=".05" x2=".82" y2="1">
+      <stop stop-color="#e2e8f0"/>
+      <stop offset=".5" stop-color="#cbd5e0"/>
+      <stop offset="1" stop-color="#a0aec0"/>
+    </linearGradient>
+    <radialGradient id="silvercoin-ghost-glow">
+      <stop stop-color="#b9d7ff" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#7fb3d5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Ghost body made of silver coin material -->
+  <circle cx="32" cy="32" r="26" fill="url(#silvercoin-ghost-glow)"/>
+  <path d="M11 38c-2-14 3-26 12-30 8-4 18-3 25 3 6 6 8 15 6 27l-1 12-7-5-7 7-7-6-8 6-6-7-7 5Z" fill="url(#silvercoin-ghost-body)" stroke="#cbd5e0" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M16 38c-1-12 3-22 10-26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".68"/>
+  <!-- Coin edge details on body -->
+  <circle cx="22" cy="30" r="2" fill="#fff" opacity="0.5"/>
+  <circle cx="42" cy="30" r="2" fill="#fff" opacity="0.5"/>
+  <circle cx="32" cy="40" r="2" fill="#fff" opacity="0.5"/>
+  <!-- Eyes -->
+  <ellipse cx="26" cy="29" rx="5.2" ry="7" fill="#fff"/>
+  <ellipse cx="40" cy="29" rx="5.2" ry="7" fill="#fff"/>
+  <ellipse cx="27.5" cy="30" rx="2.5" ry="3.5" fill="#17344e"/>
+  <ellipse cx="41.5" cy="30" rx="2.5" ry="3.5" fill="#17344e"/>
+  <!-- Mouth -->
+  <path d="M29 41q4 3 8 0" fill="none" stroke="#344b6c" stroke-width="1.7" stroke-linecap="round"/>
+  <!-- Coin rim edge -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#718096" stroke-width="1.5" opacity="0.6"/>
+  <!-- Animated shimmer -->
+  <circle cx="48" cy="18" r="3" fill="#fff" opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

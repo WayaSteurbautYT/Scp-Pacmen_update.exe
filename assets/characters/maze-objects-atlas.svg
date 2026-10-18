@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="128" viewBox="0 0 384 128">
+  <title>Neon Maze maze objects atlas</title>
+  <desc>12 transparent 64-pixel frames for maze objects.</desc>
+  <defs>
+    <g id="obj-pellet">
+      <circle cx="32" cy="32" r="3" fill="#ffe477"/>
+    </g>
+    <g id="obj-power-pellet">
+      <circle cx="32" cy="32" r="8" fill="#ffd94d"/>
+      <circle cx="32" cy="32" r="6" fill="#ffe477"/>
+    </g>
+    <g id="obj-wall">
+      <rect x="20" y="20" width="24" height="24" fill="#162a40" stroke="#3d5a80" stroke-width="2"/>
+    </g>
+    <g id="obj-safe-zone">
+      <rect x="16" y="16" width="32" height="32" rx="8" fill="#0d2134" stroke="#34d9ee" stroke-width="2" opacity="0.5"/>
+    </g>
+    <g id="obj-ghost-spawn">
+      <rect x="16" y="16" width="32" height="32" rx="8" fill="#1d1533" stroke="#c18bff" stroke-width="2" opacity="0.5"/>
+    </g>
+    <g id="obj-pacman-spawn">
+      <rect x="16" y="16" width="32" height="32" rx="8" fill="#0d2134" stroke="#ffd94d" stroke-width="2" opacity="0.5"/>
+    </g>
+  </defs>
+  <g transform="translate(0 0)"><use href="#obj-pellet"/></g>
+  <g transform="translate(64 0)"><use href="#obj-power-pellet"/></g>
+  <g transform="translate(128 0)"><use href="#obj-wall"/></g>
+  <g transform="translate(192 0)"><use href="#obj-safe-zone"/></g>
+  <g transform="translate(256 0)"><use href="#obj-ghost-spawn"/></g>
+  <g transform="translate(320 0)"><use href="#obj-pacman-spawn"/></g>
+  <g transform="translate(0 64)"><use href="#obj-pellet"/></g>
+  <g transform="translate(64 64)"><use href="#obj-power-pellet"/></g>
+  <g transform="translate(128 64)"><use href="#obj-wall"/></g>
+  <g transform="translate(192 64)"><use href="#obj-safe-zone"/></g>
+  <g transform="translate(256 64)"><use href="#obj-ghost-spawn"/></g>
+  <g transform="translate(320 64)"><use href="#obj-pacman-spawn"/></g>
+</svg>

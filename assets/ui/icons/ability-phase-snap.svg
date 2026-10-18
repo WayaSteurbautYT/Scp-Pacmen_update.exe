@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="icon-phase-snap-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ba9cff"/>
+      <stop offset="100%" stop-color="#e4d9ff"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#icon-phase-snap-grad)" stroke="#fff" stroke-width="1">
+    <path d="M12 4l3 3l0 8l-3 3l-3 -3l0 -8z"/>
+    <circle cx="12" cy="12" r="1" fill="#17344e"/>
+    <animateTransform attributeName="transform" type="scale" from="1 1" to="1.2 1.2" dur="0.8s" repeatCount="indefinite"/>
+  </g>
+</svg>

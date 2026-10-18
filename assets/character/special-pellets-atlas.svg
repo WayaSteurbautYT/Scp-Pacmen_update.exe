@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="128" viewBox="0 0 384 128">
+  <title>Neon Maze elemental special pellet atlas</title>
+  <desc>Six transparent 64-pixel cells containing original sun, frost, and spark power pellets.</desc>
+  <defs>
+    <radialGradient id="sun-core" cx=".3" cy=".25" r=".8"><stop stop-color="#fffbd0"/><stop offset=".4" stop-color="#ffdf62"/><stop offset="1" stop-color="#ff883c"/></radialGradient>
+    <radialGradient id="frost-core" cx=".3" cy=".22" r=".8"><stop stop-color="#fff"/><stop offset=".45" stop-color="#a9f8ff"/><stop offset="1" stop-color="#39aaff"/></radialGradient>
+    <radialGradient id="spark-core" cx=".3" cy=".22" r=".85"><stop stop-color="#fff"/><stop offset=".4" stop-color="#e3b7ff"/><stop offset="1" stop-color="#9749ff"/></radialGradient>
+  </defs>
+  <g id="frames">
+    <g transform="translate(0 0)"><circle cx="32" cy="32" r="29" fill="#ffb44d" opacity=".12"/><circle cx="32" cy="32" r="22" fill="none" stroke="#ffce70" stroke-width="1.3" stroke-dasharray="3 4"/><circle cx="32" cy="32" r="15" fill="url(#sun-core)" stroke="#fff7bb" stroke-width="1.5"/><path d="M32 6v6m0 40v6M6 32h6m40 0h6M13.6 13.6l4.2 4.2m28.4 28.4 4.2 4.2m0-36.8-4.2 4.2M17.8 46.2l-4.2 4.2" stroke="#ffdc83" stroke-width="2" stroke-linecap="round"/></g>
+    <g transform="translate(64 0)"><circle cx="96" cy="32" r="29" fill="#49eaff" opacity=".16"/><path d="m96 7 4 15 15-4-8 14 13 8-16 1-1 16-8-13-13 8 4-15-15-4 14-8-8-13 15 7Z" fill="url(#frost-core)" stroke="#e8ffff" stroke-width="1.5"/><circle cx="96" cy="32" r="5" fill="#fff"/></g>
+    <g transform="translate(128 0)"><circle cx="160" cy="32" r="28" fill="#cb81ff" opacity=".14"/><circle cx="160" cy="32" r="21" fill="none" stroke="#dda9ff" stroke-width="1.4" stroke-dasharray="2 4"/><path d="m163 8-17 26h12l-3 22 20-30h-13l6-18Z" fill="url(#spark-core)" stroke="#f5e5ff" stroke-width="1.5" stroke-linejoin="round"/></g>
+    <g transform="translate(192 0)"><circle cx="224" cy="32" r="29" fill="#ffb44d" opacity=".09"/><circle cx="224" cy="32" r="17" fill="url(#sun-core)" stroke="#fff7bb" stroke-width="1.5"/><circle cx="224" cy="32" r="24" fill="none" stroke="#ffe594" stroke-width="1" stroke-dasharray="2 5"/><circle cx="219" cy="26" r="5" fill="#fff" opacity=".6"/></g>
+    <g transform="translate(256 0)"><circle cx="288" cy="32" r="29" fill="#49eaff" opacity=".1"/><path d="m288 8 3 13 13-3-7 12 12 7-14 1-1 14-7-11-12 7 4-13-14-4 12-7-7-12 13 6Z" fill="url(#frost-core)" stroke="#e8ffff" stroke-width="1.4"/><circle cx="288" cy="32" r="5" fill="#fff"/></g>
+    <g transform="translate(320 0)"><circle cx="352" cy="32" r="28" fill="#cb81ff" opacity=".1"/><circle cx="352" cy="32" r="21" fill="none" stroke="#dda9ff" stroke-width="1.4" stroke-dasharray="3 3"/><path d="m355 8-17 26h12l-3 22 20-30h-13l6-18Z" fill="url(#spark-core)" stroke="#f5e5ff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="343" cy="18" r="2" fill="#fff"/><circle cx="366" cy="45" r="2" fill="#fff"/></g>
+    <g transform="translate(0 64)"><circle cx="32" cy="96" r="26" fill="#ffd76c" opacity=".1"/><path d="m32 70 4 10 10-4-4 10 10 5-11 2-1 12-6-10-10 5 3-11-11-3 9-6-6-10 10 5Z" fill="url(#sun-core)" stroke="#fff7bb" stroke-width="1.4"/></g>
+    <g transform="translate(64 64)"><circle cx="96" cy="96" r="26" fill="#73eeff" opacity=".12"/><path d="m96 71 4 14 14-4-8 13 12 7-15 1-1 15-7-12-12 7 4-14-14-4 13-7-7-12 14 6Z" fill="url(#frost-core)" stroke="#edffff" stroke-width="1.4"/></g>
+    <g transform="translate(128 64)"><circle cx="160" cy="96" r="26" fill="#c783ff" opacity=".12"/><circle cx="160" cy="96" r="20" fill="none" stroke="#dda9ff" stroke-width="1.4" stroke-dasharray="2 4"/><path d="m163 72-15 24h11l-2 21 18-28h-12l5-17Z" fill="url(#spark-core)" stroke="#f5e5ff" stroke-width="1.4"/></g>
+    <g transform="translate(192 64)"><circle cx="224" cy="96" r="27" fill="#ffb44d" opacity=".12"/><circle cx="224" cy="96" r="16" fill="url(#sun-core)" stroke="#fff7bb" stroke-width="1.5"/><path d="M224 72v7m0 34v7m-24-24h7m34 0h7m-41-17 5 5m24 24 5 5m0-34-5 5m-24 24-5 5" stroke="#ffdc83" stroke-width="2" stroke-linecap="round"/></g>
+    <g transform="translate(256 64)"><circle cx="288" cy="96" r="27" fill="#49eaff" opacity=".12"/><path d="m288 71 4 14 14-4-8 13 12 7-15 1-1 15-7-12-12 7 4-14-14-4 13-7-7-12 14 6Z" fill="url(#frost-core)" stroke="#edffff" stroke-width="1.4"/><circle cx="288" cy="96" r="4" fill="#fff"/></g>
+    <g transform="translate(320 64)"><circle cx="352" cy="96" r="27" fill="#c783ff" opacity=".12"/><circle cx="352" cy="96" r="21" fill="none" stroke="#dda9ff" stroke-width="1.4" stroke-dasharray="3 3"/><path d="m355 72-15 24h11l-2 21 18-28h-12l5-17Z" fill="url(#spark-core)" stroke="#f5e5ff" stroke-width="1.4"/></g>
+  </g>
+</svg>

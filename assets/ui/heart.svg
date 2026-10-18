@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="heart-grad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ff6b8b"/>
+      <stop offset="35%" stop-color="#ff1744"/>
+      <stop offset="80%" stop-color="#c51162"/>
+      <stop offset="100%" stop-color="#880e4f"/>
+    </radialGradient>
+    <filter id="heart-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dark Base Outline -->
+  <path d="M 32 56 
+           C 29 53, 7 35, 7 21 
+           C 7 11, 16 5, 25 7 
+           C 29 8, 31 11, 32 14 
+           C 33 11, 35 8, 39 7 
+           C 48 5, 57 11, 57 21 
+           C 57 35, 35 53, 32 56 Z"
+        fill="url(#heart-grad)"
+        stroke="#1a0008"
+        stroke-width="3"
+        stroke-linejoin="round"
+        filter="url(#heart-glow)"/>
+
+  <!-- Top-left Gloss Highlight -->
+  <path d="M 14 19 C 14 13, 19 9, 24 9"
+        fill="none"
+        stroke="#ffffff"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        opacity="0.75"/>
+  <circle cx="27" cy="11" r="1.2" fill="#ffffff" opacity="0.8"/>
+</svg>

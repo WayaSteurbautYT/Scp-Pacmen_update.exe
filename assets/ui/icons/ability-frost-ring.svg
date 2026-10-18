@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="icon-frost-ring-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a8f5ff"/>
+      <stop offset="100%" stop-color="#438bff"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#icon-frost-ring-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="7"/>
+    <path d="M12 5l1 2M18 12l-2 1M12 19l-1 -2M6 12l2 -1"/>
+    <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="90 12 12" dur="1.5s" repeatCount="indefinite"/>
+  </g>
+</svg>

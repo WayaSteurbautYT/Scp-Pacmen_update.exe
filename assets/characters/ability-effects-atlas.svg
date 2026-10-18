@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="128" viewBox="0 0 384 128">
+  <title>Neon Maze ability effects atlas</title>
+  <desc>12 transparent 64-pixel frames for ability effects.</desc>
+  <defs>
+    <g id="effect-pulse">
+      <circle cx="32" cy="32" r="16" fill="#49dce8" opacity="0.4"/>
+      <circle cx="32" cy="32" r="20" fill="#49dce8" opacity="0.2"/>
+      <animate attributeName="r" values="16;24;16" dur="1s" repeatCount="indefinite"/>
+    </g>
+    <g id="effect-slash">
+      <line x1="16" y1="32" x2="48" y2="32" stroke="#ffd94d" stroke-width="4" stroke-linecap="round"/>
+      <line x1="24" y1="24" x2="40" y2="40" stroke="#ffe477" stroke-width="2" stroke-linecap="round"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="90 32 32" dur="0.3s" repeatCount="indefinite"/>
+    </g>
+    <g id="effect-dash">
+      <circle cx="32" cy="32" r="12" fill="#9c6eff"/>
+      <path d="M20 32 L 28 32 M36 32 L 44 32 M32 20 L 32 28 M32 36 L 32 44" stroke="#fff" stroke-width="2" opacity="0.8"/>
+    </g>
+    <g id="effect-runner-shield">
+      <circle cx="32" cy="32" r="20" fill="#53e2b4" opacity="0.3"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#53e2b4" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="180 32 32" dur="2s" repeatCount="indefinite"/>
+    </g>
+    <g id="effect-ghost-stealth">
+      <ellipse cx="32" cy="32" rx="16" ry="12" fill="#c18bff" opacity="0.3"/>
+      <ellipse cx="32" cy="32" rx="20" ry="14" fill="none" stroke="#c18bff" stroke-width="2"/>
+    </g>
+    <g id="effect-ghost-track">
+      <circle cx="32" cy="32" r="8" fill="#ff6c87"/>
+      <circle cx="24" cy="24" r="4" fill="#ff6c87" opacity="0.6"/>
+      <circle cx="40" cy="24" r="4" fill="#ff6c87" opacity="0.6"/>
+      <circle cx="24" cy="40" r="4" fill="#ff6c87" opacity="0.6"/>
+      <circle cx="40" cy="40" r="4" fill="#ff6c87" opacity="0.6"/>
+    </g>
+  </defs>
+  <g transform="translate(0 0)"><use href="#effect-pulse"/></g>
+  <g transform="translate(64 0)"><use href="#effect-slash"/></g>
+  <g transform="translate(128 0)"><use href="#effect-dash"/></g>
+  <g transform="translate(192 0)"><use href="#effect-runner-shield"/></g>
+  <g transform="translate(256 0)"><use href="#effect-ghost-stealth"/></g>
+  <g transform="translate(320 0)"><use href="#effect-ghost-track"/></g>
+  <g transform="translate(0 64)"><use href="#effect-pulse"/></g>
+  <g transform="translate(64 64)"><use href="#effect-slash"/></g>
+  <g transform="translate(128 64)"><use href="#effect-dash"/></g>
+  <g transform="translate(192 64)"><use href="#effect-runner-shield"/></g>
+  <g transform="translate(256 64)"><use href="#effect-ghost-stealth"/></g>
+  <g transform="translate(320 64)"><use href="#effect-ghost-track"/></g>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title description">
+  <title id="title">Neon Maze — animated Pac-Man</title>
+  <desc id="description">Three colorful Pac-Men chomp through a glowing neon maze as a ghost bobs nearby.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#101a31" />
+      <stop offset="1" stop-color="#080d19" />
+    </linearGradient>
+    <linearGradient id="maze-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#39dcff" />
+      <stop offset="1" stop-color="#5574ff" />
+    </linearGradient>
+    <radialGradient id="ambient">
+      <stop stop-color="#284b9b" stop-opacity=".26" />
+      <stop offset="1" stop-color="#101a31" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <style>
+      * { box-sizing: border-box; }
+      .label { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      .eyebrow { fill: #83a0c9; font-size: 11px; font-weight: 700; letter-spacing: 2.8px; }
+      .title { fill: #f1f6ff; font-size: 28px; font-weight: 750; letter-spacing: -.8px; }
+      .subtitle { fill: #91a5c5; font-size: 13px; }
+      .maze-line { fill: none; stroke: url(#maze-glow); stroke-width: 3; opacity: .78; }
+      .pacman { filter: url(#soft-glow); transform-box: fill-box; transform-origin: center; animation: bob 1.2s ease-in-out var(--delay) infinite; }
+      .ghost { animation: ghost-bob 1.7s ease-in-out infinite; }
+      .ghost-body { fill: var(--ghost); filter: url(#soft-glow); }
+      .pellet { fill: #d7e9ff; filter: url(#soft-glow); animation: twinkle 1.3s ease-in-out var(--delay) infinite; }
+      .badge { fill: #131f37; stroke: #2a3a59; }
+      .badge-text { fill: #c3d2ea; font-size: 10px; font-weight: 700; letter-spacing: 1.1px; }
+      @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+      @keyframes ghost-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+      @keyframes twinkle { 0%, 100% { opacity: .48; } 50% { opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) {
+        .pacman, .ghost, .pellet, .pacman animate { animation: none; display: none; }
+      }
+    </style>
+  </defs>
+
+  <rect width="960" height="600" rx="28" fill="url(#background)" />
+  <ellipse cx="480" cy="320" rx="420" ry="300" fill="url(#ambient)" />
+  <path d="M 28 104 H 932" stroke="#25334d" />
+
+  <g class="label">
+    <circle cx="57" cy="54" r="18" fill="#ffd84d" />
+    <path d="M 57 54 L 73 47 A 18 18 0 0 1 73 61 Z" fill="#101a31" />
+    <text class="eyebrow" x="88" y="48">ARCADE COLLECTION</text>
+    <text class="title" x="88" y="77">NEON MAZE</text>
+    <text class="subtitle" x="723" y="55">A little more chomp.</text>
+    <text class="subtitle" x="723" y="76">A lot more glow.</text>
+  </g>
+
+  <rect x="40" y="126" width="880" height="386" rx="22" fill="#0b1425" stroke="#22324f" stroke-width="1.5" />
+  <rect x="52" y="138" width="856" height="362" rx="16" fill="none" stroke="#13223a" />
+
+  <g filter="url(#soft-glow)">
+    <path class="maze-line" d="M 110 218 H 850 Q 870 218 870 238 V 362 Q 870 382 850 382 H 110 Q 90 382 90 362 V 238 Q 90 218 110 218 Z" />
+    <path class="maze-line" opacity=".34" d="M 168 250 H 792 V 350 H 168 Z" />
+    <path d="M 168 300 H 792" stroke="#243958" stroke-width="1.5" stroke-dasharray="3 12" stroke-linecap="round" />
+  </g>
+  <circle class="pellet" style="--delay:0.00s" cx="150" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.12s" cx="206" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.24s" cx="262" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.36s" cx="318" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.48s" cx="374" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.60s" cx="430" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.72s" cx="486" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.84s" cx="542" cy="300" r="4" />
+<circle class="pellet" style="--delay:0.96s" cx="598" cy="300" r="4" />
+<circle class="pellet" style="--delay:1.08s" cx="654" cy="300" r="4" />
+<circle class="pellet" style="--delay:1.20s" cx="710" cy="300" r="4" />
+<circle class="pellet" style="--delay:1.32s" cx="766" cy="300" r="4" />
+
+  <g class="label">
+    <rect class="badge" x="67" y="153" width="116" height="26" rx="13" />
+    <circle cx="82" cy="166" r="3" fill="#5be4c2" />
+    <text class="badge-text" x="93" y="170">LIVE ANIMATION</text>
+  </g>
+
+  <g class="pacman" style="--character:#ffd84d;--delay:0s">
+      <circle cx="186" cy="300" r="28" fill="var(--character)" />
+      <path fill="#08111f" d="M 186 300 L 214.00 300.00 A 28 28 0 0 1 214.00 300.00 Z">
+        <animate attributeName="d" dur="0.72s" repeatCount="indefinite"
+          values="M 186 300 L 214.00 300.00 A 28 28 0 0 1 214.00 300.00 Z;M 186 300 L 213.39 294.18 A 28 28 0 0 1 213.39 305.82 Z;M 186 300 L 211.58 288.61 A 28 28 0 0 1 211.58 311.39 Z;M 186 300 L 213.39 294.18 A 28 28 0 0 1 213.39 305.82 Z;M 186 300 L 214.00 300.00 A 28 28 0 0 1 214.00 300.00 Z" keyTimes="0;0.22;0.5;0.78;1"
+          calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+          begin="0s" />
+      </path>
+      <circle cx="189.36" cy="286.56" r="2.50" fill="#08111f" />
+    </g>
+  <g class="pacman" style="--character:#51dcff;--delay:0.14s">
+      <circle cx="435" cy="300" r="24" fill="var(--character)" />
+      <path fill="#08111f" d="M 435 300 L 459.00 300.00 A 24 24 0 0 1 459.00 300.00 Z">
+        <animate attributeName="d" dur="0.72s" repeatCount="indefinite"
+          values="M 435 300 L 459.00 300.00 A 24 24 0 0 1 459.00 300.00 Z;M 435 300 L 458.48 295.01 A 24 24 0 0 1 458.48 304.99 Z;M 435 300 L 456.93 290.24 A 24 24 0 0 1 456.93 309.76 Z;M 435 300 L 458.48 295.01 A 24 24 0 0 1 458.48 304.99 Z;M 435 300 L 459.00 300.00 A 24 24 0 0 1 459.00 300.00 Z" keyTimes="0;0.22;0.5;0.78;1"
+          calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+          begin="0.14s" />
+      </path>
+      <circle cx="437.88" cy="288.48" r="2.50" fill="#08111f" />
+    </g>
+  <g class="pacman" style="--character:#ff70b5;--delay:0.28s">
+      <circle cx="663" cy="300" r="20" fill="var(--character)" />
+      <path fill="#08111f" d="M 663 300 L 683.00 300.00 A 20 20 0 0 1 683.00 300.00 Z">
+        <animate attributeName="d" dur="0.72s" repeatCount="indefinite"
+          values="M 663 300 L 683.00 300.00 A 20 20 0 0 1 683.00 300.00 Z;M 663 300 L 682.56 295.84 A 20 20 0 0 1 682.56 304.16 Z;M 663 300 L 681.27 291.87 A 20 20 0 0 1 681.27 308.13 Z;M 663 300 L 682.56 295.84 A 20 20 0 0 1 682.56 304.16 Z;M 663 300 L 683.00 300.00 A 20 20 0 0 1 683.00 300.00 Z" keyTimes="0;0.22;0.5;0.78;1"
+          calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+          begin="0.28s" />
+      </path>
+      <circle cx="665.40" cy="290.40" r="2.50" fill="#08111f" />
+    </g>
+  <g class="ghost" style="--ghost:#a98aff">
+      <path class="ghost-body" d="M 775 320 V 295
+        C 775 261, 825 261, 825 295
+        V 320 L 813 311 L 800 320
+        L 787 311 Z" />
+      <ellipse cx="791" cy="296" rx="6" ry="8" fill="#f7fbff" />
+      <ellipse cx="809" cy="296" rx="6" ry="8" fill="#f7fbff" />
+      <circle cx="793" cy="298" r="2.8" fill="#172a50" />
+      <circle cx="811" cy="298" r="2.8" fill="#172a50" />
+    </g>
+
+  <g class="label">
+    <text class="eyebrow" x="64" y="550">BUILT FOR THE NEXT HIGH SCORE</text>
+    <text class="subtitle" x="64" y="574">Pure SVG · Infinite loop · Respects reduced motion</text>
+    <g transform="translate(702 542)">
+      <circle cx="10" cy="10" r="8" fill="#ffd84d" />
+      <circle cx="36" cy="10" r="7" fill="#51dcff" />
+      <circle cx="60" cy="10" r="6" fill="#ff70b5" />
+      <text class="badge-text" x="77" y="14">3 PLAYERS / 1 MAZE</text>
+    </g>
+  </g>
+</svg>

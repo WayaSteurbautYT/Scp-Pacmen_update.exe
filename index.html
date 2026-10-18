@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; img-src 'self' data: blob:; connect-src 'self' http: https: ws: wss:"
+    />
+    <meta name="theme-color" content="#07111c" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" type="image/svg+xml" href="/assets/Scp-PAC_Update.exe.svg" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/assets/neon-maze-icon.svg" sizes="32x32 48x48 64x64 128x128 256x256">
+    <title>SCP-PAC_UPDATE.EXE — Waya Create Studios</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Open SCP-PAC home" id="home-link">
+          <img class="brand-mark" src="/assets/neon-maze-icon.svg" alt="" aria-hidden="true">
+          <span class="brand-copy">
+            <span class="brand-kicker">WAYA CREATE STUDIOS</span>
+            <span class="brand-title">SCP-PAC_UPDATE.EXE</span>
+          </span>
+        </a>
+        <div class="topbar-right">
+          <span class="connection" id="connection-state"><span class="status-dot"></span><span id="connection-state-label">LOCAL SESSION</span></span>
+          <span class="version">DESKTOP PROTOTYPE 01</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro-row" aria-labelledby="heading">
+          <div>
+            <p class="eyebrow">THE CLASSIC, REIMAGINED</p>
+            <h1 id="heading">SCP-PAC: one strange shift.</h1>
+            <p class="intro-copy">Pick a race, find the safe zones, and try not to trust the maze.</p>
+          </div>
+          <div class="intro-actions">
+            <span class="profile-badge" id="profile-badge">GUEST · PAC-MAN</span>
+            <button class="button button-quiet" id="profile-button" type="button">Change player</button>
+            <button class="button button-quiet" id="restart-button" type="button">
+              <span aria-hidden="true">↻</span> New game
+            </button>
+          </div>
+        </section>
+
+        <section class="game-layout" aria-label="Pac-Man game">
+          <div class="play-column">
+            <div class="game-panel">
+              <div class="game-panel-top">
+                <div class="cmd-header">
+                  <span class="cmd-prompt">C:\SCP-PAC\></span>
+                  <span class="cmd-title">SCP-PAC_UPDATE.EXE</span>
+                  <span class="cmd-status panel-label" id="panel-label"><span class="status-dot"></span> RUNNING</span>
+                </div>
+                <div class="game-tools">
+                  <label class="zoom-control" for="zoom-slider"><span>ZOOM</span><input id="zoom-slider" type="range" min="0.8" max="2.4" step="0.05" value="1.55" aria-label="Game zoom"><output id="zoom-value">155%</output></label>
+                  <button class="tool-button" id="fullscreen-button" type="button" aria-label="Enter full-screen maze">⛶ <span>ENTER MAZE</span></button>
+                  <span class="level-label">WORLD <strong>01</strong></span>
+                </div>
+              </div>
+              <div class="game-stage">
+                <div id="game-canvas" aria-label="Game board"></div>
+                <div class="game-hud" id="game-hud">
+                  <div class="game-hud-top">
+                    <span class="game-hud-brand"><img src="/assets/neon-maze-icon.svg" alt=""> SCP-PAC <b id="game-hud-world">WORLD 01</b><b id="game-hud-rank">RANK #01</b></span>
+                              <span class="game-hud-stats"><b id="game-hud-score">000000</b><span class="hud-hearts" id="game-hud-hearts"></span><span class="hud-hunger"><img src="/assets/ui/hunger.svg" alt=""><b id="game-hud-hunger-value">100%</b></span><span class="hud-pulse">◉ <b id="pulse-count">03</b></span><span class="hud-currency" id="game-hud-currency">◈ 0</span><span class="ability-cooldown" id="ability-cooldown">R · READY</span></span>
+                    <div class="game-hud-actions">
+                      <span class="nearby-hint" id="nearby-hint" hidden></span>
+                      <div class="tame-ui" id="tame-ui" hidden>
+                        <button type="button" id="tame-button" class="tame-button" aria-label="Press T again to tame">
+                          PRESS T TO TAME
+                        </button>
+                        <div class="tame-bar" id="tame-progress" hidden>
+                          <div class="tame-fill" id="tame-fill"></div>
+                        </div>
+                      </div>
+                      <button type="button" id="target-lock-button" class="target-lock" aria-label="Lock target <kbd>L</kbd>" title="Lock nearest enemy target (L)">
+                        🎯 <span class="target-lock-status" id="target-lock-status">—</span>
+                      </button>
+                      <button type="button" id="game-menu-button">MENU <kbd>ESC</kbd></button>
+                      <button type="button" id="game-exit-button" aria-label="Exit full-screen maze">EXIT <kbd>ESC</kbd></button>
+                    </div>
+                  </div>
+                  <div class="game-hud-bottom">
+                    <div class="survival-bar" aria-label="Health and hunger">
+                      <span class="survival-hearts" id="hotbar-hearts"></span>
+                      <span class="survival-hunger" id="hotbar-hunger"></span>
+                    </div>
+                    <div class="game-hotbar" id="game-hotbar" aria-label="Quick-use inventory">
+                      <button type="button" data-hotbar-slot="0" aria-label="Use Arc Cell"><img src="/assets/ui/icons/item-arc-cell.svg" width="18" height="18" alt=""><small>ARC CELL</small><b>0</b></button>
+                      <button type="button" data-hotbar-slot="1" aria-label="Use Wisp Fragment"><img src="/assets/ui/icons/item-wisp-fragment.svg" width="18" height="18" alt=""><small>WISP FRAG</small><b>0</b></button>
+                      <button type="button" data-hotbar-slot="2" aria-label="Use Star Flake"><img src="/assets/ui/icons/item-star-flake.svg" width="18" height="18" alt=""><small>STAR FLAKE</small><b>0</b></button>
+                      <button type="button" data-hotbar-slot="3" aria-label="Open inventory"><img src="/assets/ui/icons/item-echo-dust.svg" width="18" height="18" alt=""><small>INVENTORY</small><b>›</b></button>
+                    </div>
+                  </div>
+                  <p class="brake-hint" id="brake-hint">SPACE slash · E inventory · R ability · Q dash · F chat</p>
+                </div>
+                <section class="game-menu" id="game-menu" aria-label="In-game menu" hidden>
+                  <div class="game-menu-head">
+                    <div><span class="eyebrow">MAZE PAUSED</span><h2 id="game-menu-title">Inventory</h2></div>
+                    <button type="button" id="game-menu-close" aria-label="Close game menu">×</button>
+                  </div>
+                  <nav class="game-menu-tabs" aria-label="Game menu pages">
+                    <button type="button" data-game-tab="inventory" aria-selected="true">INVENTORY</button>
+                    <button type="button" data-game-tab="skills" aria-selected="false">SKILL TREE</button>
+                    <button type="button" data-game-tab="missions" aria-selected="false">MISSIONS</button>
+                    <button type="button" data-game-tab="settings" aria-selected="false">SETTINGS</button>
+                  </nav>
+                  <div class="game-menu-page" id="game-menu-inventory">
+                    <p class="game-menu-note">Click a consumable to use it or a weapon to equip it. Press 1–3 for quick-use items.</p>
+                    <div class="inventory-equipment" id="inventory-equipment"></div>
+                    <ul class="inventory-list" id="inventory-list"></ul>
+                  </div>
+                  <div class="game-menu-page" id="game-menu-skills" hidden>
+                    <p class="game-menu-note" id="skill-tree-caption">Unlock and equip faction abilities. R casts the selected ability.</p>
+                    <div class="skill-tree" id="skill-tree"></div>
+                    <div class="rebirth-panel" id="rebirth-panel"></div>
+                  </div>
+                  <div class="game-menu-page" id="game-menu-missions" hidden></div>
+                  <div class="game-menu-page" id="game-menu-settings" hidden>
+                    <p class="game-menu-note">The game keeps running? No—the maze pauses while this menu is open.</p>
+                    <div class="game-menu-settings">
+                      <button type="button" data-menu-toggle="sound-toggle">TOGGLE SOUND</button>
+                      <button type="button" data-menu-toggle="music-toggle">TOGGLE MUSIC</button>
+                      <button type="button" data-menu-toggle="bubble-toggle">TOGGLE CHAT BUBBLES</button>
+                      <button type="button" data-menu-toggle="narrator-toggle">CHARACTER NARRATOR OFF</button>
+                      <button type="button" data-menu-toggle="autonomy-toggle">CHARACTER AUTONOMY OFF</button>
+                      <label class="menu-range"><span>HUD SIZE</span><input type="range" min="0.8" max="1.5" step="0.05" value="1" data-hud-scale><output>100%</output></label>
+                      <label class="menu-range"><span>CAMERA ZOOM</span><input type="range" min="0.8" max="2.4" step="0.05" value="1.55" data-camera-zoom><output>155%</output></label>
+                      <label class="menu-range"><span>CHARACTER SIZE</span><input type="range" min="0.8" max="1.8" step="0.05" value="1.15" data-character-size><output>115%</output></label>
+                      <button type="button" data-menu-action="tutorial">START TUTORIAL</button>
+                      <button type="button" data-menu-action="change-profile">CHANGE PLAYER</button>
+                      <button type="button" data-menu-action="home">GO TO HOME</button>
+                      <button type="button" data-menu-action="restart">NEW RUN</button>
+                    </div>
+                  </div>
+                  <button type="button" class="game-menu-resume" id="game-menu-resume">BACK TO THE MAZE</button>
+                </section>
+                <section class="tutorial-card" id="tutorial-card" aria-label="Maze tutorial" aria-live="polite" hidden>
+                  <span class="eyebrow">FIELD GUIDE · <b id="tutorial-step-count">1 / 5</b></span>
+                  <h2 id="tutorial-step-title">Find your feet. You have none.</h2>
+                  <p id="tutorial-step-copy"></p>
+                  <div class="tutorial-actions">
+                    <button type="button" id="tutorial-repeat">READ STEP</button>
+                    <button type="button" id="tutorial-skip">SKIP</button>
+                    <button type="button" id="tutorial-next">NEXT →</button>
+                  </div>
+                </section>
+                <div class="game-overlay" id="game-overlay" hidden>
+                  <div class="overlay-card">
+                    <span class="overlay-kicker" id="overlay-kicker">MAZE COMPLETE</span>
+                    <h2 id="overlay-title">Nice run.</h2>
+                    <p id="overlay-copy">Ready for another?</p>
+                    <button class="button button-primary" id="overlay-restart" type="button">Play again</button>
+                  </div>
+                </div>
+              </div>
+              <div class="game-panel-bottom">
+                <span><span class="keycap">↑</span><span class="keycap">←</span><span class="keycap">↓</span><span class="keycap">→</span> or WASD to move</span>
+                <span><span class="keycap">SPACE</span> slash</span>
+                <span><span class="keycap">E</span> inventory</span>
+                <span><span class="keycap">R</span> ability</span>
+                <span><span class="keycap">F</span> chat</span>
+                <span><span class="keycap">T</span> tame</span>
+                <span><span class="keycap">Q</span> dash / phase</span>
+                <span><span class="keycap">G</span> talk</span>
+                <span><span class="keycap">C</span> pulse</span>
+                <span><span class="keycap">L</span> lock target</span>
+                <span><span class="keycap">ESC</span> menu</span>
+              </div>
+            </div>
+            <p class="play-hint"><span class="hint-star">✦</span> The maze grows as you explore. Find the amber pulse cells for extra charges.</p>
+          </div>
+
+          <aside class="sidebar" aria-label="Game information">
+            <section class="info-card score-card">
+              <div class="card-heading"><span class="eyebrow">YOUR SCORE</span><span class="score-icon">✦</span></div>
+              <div class="score-value" id="score-value">000000</div>
+              <div class="score-caption">Every pellet counts.</div>
+              <div class="score-divider"></div>
+              <div class="stat-row"><span>ALL-TIME BEST</span><strong id="best-value">000000</strong></div>
+            </section>
+
+            <section class="info-card">
+              <div class="card-heading"><span class="eyebrow">HEARTS</span><span class="eyebrow" id="lives-caption">3 / 3 HEARTS</span></div>
+              <div class="lives-display" id="lives-display" aria-label="3 lives remaining"></div>
+              <div class="hunger-row"><span>HUNGER</span><strong id="hunger-value">100%</strong></div>
+              <div class="hunger-track"><span id="hunger-meter"></span></div>
+              <p class="card-note">Eat to stay strong. Empty hunger drains hearts.</p>
+            </section>
+
+            <section class="info-card progress-card">
+              <div class="card-heading"><span class="eyebrow">RUNNER LEVEL</span><span class="level-pill">LV <strong id="level-value">1</strong></span></div>
+              <div class="xp-row"><span>EXPERIENCE</span><strong id="xp-value">0 / 100 XP</strong></div>
+              <div class="xp-track"><span id="xp-meter"></span></div>
+              <div class="coin-row"><span id="coin-row-label">PACCOINS</span><strong><span id="coin-icon" aria-hidden="true">●</span> <span id="coin-value">0</span></strong></div>
+              <p class="card-note">Earn XP and coins by exploring, eating, and completing missions.</p>
+            </section>
+
+            <section class="info-card quest-card">
+              <div class="card-heading"><span class="eyebrow">ACTIVE MISSIONS</span><span class="eyebrow">REWARDS</span></div>
+              <ol class="quest-list" id="quest-list"></ol>
+            </section>
+
+            <section class="info-card shop-card">
+              <div class="card-heading"><span class="eyebrow">SKILL STATION</span><span class="eyebrow" id="shop-currency-label">PACCOINS</span></div>
+              <div class="shop-items" id="shop-items"></div>
+              <p class="card-note">Upgrades are earned in-game and saved on this device.</p>
+            </section>
+
+            <section class="info-card ghosts-card">
+              <div class="card-heading"><span class="eyebrow" id="squad-title">GHOST SQUAD</span><span class="squad-status"><span class="status-dot"></span> ACTIVE</span></div>
+              <div class="ghost-row">
+                <span class="ghost-chip ghost-red"><i></i></span><span class="ghost-name">BLINKY</span><span class="ghost-role">THE CHASER</span>
+              </div>
+              <div class="ghost-row">
+                <span class="ghost-chip ghost-pink"><i></i></span><span class="ghost-name">PINKY</span><span class="ghost-role">THE SNEAK</span>
+              </div>
+              <div class="ghost-row">
+                <span class="ghost-chip ghost-cyan"><i></i></span><span class="ghost-name">INKY</span><span class="ghost-role">THE WILD CARD</span>
+              </div>
+              <div class="ghost-row">
+                <span class="ghost-chip ghost-orange"><i></i></span><span class="ghost-name">CLYDE</span><span class="ghost-role">THE ROAMER</span>
+              </div>
+            </section>
+
+            <section class="info-card leaderboard-card">
+              <div class="card-heading"><span class="eyebrow">LOCAL LEADERBOARD</span><span class="eyebrow" id="leader-rank">DEVICE RANK</span></div>
+              <ol class="leaderboard-list" id="leaderboard-list">
+                <li><span class="leader-rank">01</span><span class="leader-name">NEON ACE</span><strong>008420</strong></li>
+                <li><span class="leader-rank">02</span><span class="leader-name">GHOSTBYTE</span><strong>006180</strong></li>
+                <li><span class="leader-rank">03</span><span class="leader-name">YOUR RUN</span><strong id="leader-score">000000</strong></li>
+              </ol>
+              <p class="card-note">Best runs saved on this device.</p>
+            </section>
+
+            <section class="info-card comms-card" id="comms-card">
+              <div class="card-heading"><span class="eyebrow"><span class="chat-glyph" aria-hidden="true">◉</span> LOBBY CHAT</span><span class="squad-status"><span class="status-dot"></span> LOCAL</span></div>
+              <form class="network-form" id="network-form">
+                <label class="sr-only" for="server-url">Room server address</label>
+                <input id="server-url" type="url" value="http://127.0.0.1:3100" spellcheck="false" aria-label="Room server address">
+                <div class="network-join-row">
+                  <label class="sr-only" for="room-code">Room code</label>
+                  <input id="room-code" maxlength="10" placeholder="ROOM CODE · BLANK = CREATE" autocomplete="off" spellcheck="false">
+                  <button type="submit" id="lobby-button">JOIN</button>
+                </div>
+              </form>
+              <p class="network-status" id="network-status" aria-live="polite">Room server is local. Enter a host IP to join over LAN.</p>
+              <div class="online-roster" id="online-roster" aria-label="Online room players"></div>
+              <div class="chat-feed" id="chat-feed" aria-live="polite">
+                <div class="chat-line"><span class="chat-author">SYSTEM</span><span>Welcome to Neon Maze. GLHF!</span></div>
+              </div>
+              <div class="typing-indicator" id="typing-indicator" aria-live="polite" hidden><span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="typing-copy"></span></div>
+              <form class="chat-form" id="chat-form">
+                <label class="sr-only" for="chat-input">Send lobby chat message</label>
+                <input id="chat-input" maxlength="140" placeholder="Say something..." autocomplete="off">
+                <button type="submit" aria-label="Send message">↑</button>
+              </form>
+              <div class="settings-row">
+                <button class="toggle-button is-on" id="sound-toggle" type="button" aria-pressed="true">♫ SOUND ON</button>
+                <button class="toggle-button" id="music-toggle" type="button" aria-pressed="false">♪ MUSIC OFF</button>
+                <button class="toggle-button is-on" id="bubble-toggle" type="button" aria-pressed="true">◉ BUBBLES ON</button>
+                <button class="toggle-button" id="narrator-toggle" type="button" aria-pressed="false">◉ NARRATOR OFF</button>
+                <button class="toggle-button" id="autonomy-toggle" type="button" aria-pressed="false">◉ AUTONOMY OFF</button>
+                <button class="toggle-button" id="mic-toggle" type="button" aria-pressed="false">MIC OFF</button>
+              </div>
+              <p class="network-status" id="voice-status">Voice is off until you enable your mic.</p>
+              <label class="volume-control" for="volume-slider"><span>SOUND LEVEL</span><input id="volume-slider" type="range" min="0" max="100" value="65"><output id="volume-value">65%</output></label>
+              <label class="volume-control" for="visual-slider"><span>CHARACTER SIZE</span><input id="visual-slider" type="range" min="0.8" max="1.8" step="0.05" value="1.15"><output id="visual-value">115%</output></label>
+              <label class="volume-control" for="hud-scale-slider"><span>HUD SIZE</span><input id="hud-scale-slider" type="range" min="0.8" max="1.5" step="0.05" value="1"><output id="hud-scale-value">100%</output></label>
+            </section>
+
+            <section class="tip-card">
+              <span class="tip-spark">✦</span>
+              <div><strong>Pro tip</strong><p id="tip-copy">Power orbs make ghosts vulnerable for a few seconds.</p></div>
+            </section>
+          </aside>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>PURE ARCADE ENERGY.</span>
+        <span>BUILT FOR THE NEXT HIGH SCORE <span class="footer-dot">●</span> MORE TO COME</span>
+      </footer>
+    </div>
+    <div class="intro-screen" id="intro-screen" role="dialog" aria-modal="true" aria-label="SCP-PAC title screen">
+      <div class="intro-seq" id="intro-seq">
+        <div class="intro-stage" id="intro-stage-icon">
+          <div class="scp-terminal-header">
+            <span class="scp-tag">SCP FOUNDATION // LEVEL 4 CLEARANCE</span>
+            <span class="scp-doc-id">ANOMALY DOSSIER: SCP-4605</span>
+          </div>
+          <img class="intro-mark" src="/assets/Scp-PAC_Update.exe.svg" alt="SCP-PAC app icon">
+          <div class="scp-label">CONTAINMENT SIMULATION // ARKADY HIVE-MIND INTERFACE</div>
+        </div>
+        <div class="intro-stage hidden" id="intro-stage-title">
+          <div class="scp-warning-strip">⚠ ANOMALOUS DIGITAL EXECUTABLE ⚠</div>
+          <h1 class="intro-title">SCP-PAC_<span>UPDATE</span><span class="exe">.EXE</span></h1>
+          <p class="intro-subtitle">A STRANGE LITTLE SHIFT IN A VERY LARGE MAZE</p>
+          <div class="intro-feature-pills">
+            <span>● 2 PLAYABLE RACES</span>
+            <span>✦ ELEMENTAL POWERS</span>
+            <span>❤ MINECRAFT SURVIVAL</span>
+            <span>⚔ MULTIPLAYER ROOMS</span>
+          </div>
+        </div>
+        <div class="intro-stage hidden" id="intro-stage-credit">
+          <p class="intro-studio">WAYA CREATE STUDIOS</p>
+          <p class="intro-ai-note">Made with AI-assisted development · Steam &amp; Itch.io Demo</p>
+          <div class="intro-age-rating">
+            <span class="age-badge">14+</span>
+            <span class="age-icon" title="Dark comedy">☠</span>
+            <span class="age-icon" title="Mild-to-strong language">💬</span>
+            <span class="age-icon" title="SCP Horror">👁</span>
+            <span class="age-icon" title="Cartoon violence">💥</span>
+          </div>
+          <p class="intro-keyboard-prompt">[ PRESS SPACE OR ENTER TO INITIALIZE ]</p>
+        </div>
+        <button id="intro-skip" class="intro-skip" type="button">INITIALIZE EXPEDITION <span>→</span></button>
+      </div>
+    </div>
+    <div class="skills-screen" id="skills-screen" hidden role="dialog" aria-modal="true" aria-labelledby="skills-title">
+      <div class="skills-shell">
+        <div class="skills-header">
+          <span class="eyebrow">FIELD UPGRADE TERMINAL</span>
+          <h2 id="skills-title">Skill trees<span>.</span></h2>
+          <div class="skills-factions">
+            <button type="button" class="faction-tab is-active" data-skills-faction="pacmen" aria-pressed="true">PAC-MEN TREE</button>
+            <button type="button" class="faction-tab" data-skills-faction="ghosts" aria-pressed="false">GHOST TREE</button>
+          </div>
+          <p class="skills-wallet" id="skills-wallet"></p>
+        </div>
+        <div class="skill-tree skills-tree-body" id="skills-tree-body"></div>
+        <div class="skills-rebirth" id="skills-rebirth-panel"></div>
+        <button type="button" class="button button-quiet skills-close" id="skills-close">← BACK TO SETUP</button>
+      </div>
+    </div>
+    <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+    <div class="loading-screen" id="loading-screen" role="status" aria-live="polite" hidden>
+      <div class="loading-card"><img src="/assets/neon-maze-icon.svg" alt=""><span class="eyebrow">FIELD OPERATIONS</span><h2>Preparing your maze...</h2><p id="loading-caption">Checking the snacks. All accounted for.</p><div class="loading-track"><i></i></div></div>
+    </div>
+    <div class="setup-screen" id="setup-screen" data-setup-step="character" role="dialog" aria-modal="true" aria-labelledby="setup-title">
+      <div class="setup-shell">
+        <div class="setup-brand"><img class="brand-mark" src="/assets/neon-maze-icon.svg" alt="" aria-hidden="true"><span><span class="brand-kicker">WAYA CREATE STUDIOS</span><strong>SCP-PAC_UPDATE.EXE</strong></span><span class="setup-tag" id="setup-stage-label">CHARACTER CREATION · 1 / 2</span><button class="button button-quiet setup-skills-button" id="setup-skills-button" type="button">SKILL TREES</button></div>
+        <div class="setup-content">
+          <div class="setup-copy">
+            <p class="eyebrow">WAYA CREATE STUDIOS · FIELD INTAKE</p>
+            <h2 id="setup-title">Choose your<br><span>kind of trouble.</span></h2>
+            <p>Select a race, set your colors and name, then head out. All limbs remain strictly unissued.</p>
+            <div class="spawn-preview">
+              <div class="spawn-pad pac-spawn"><span class="mini-pac"></span><span><strong>PAC-MAN BASE</strong><small>Safe spawn · west wing</small></span></div>
+              <div class="spawn-link"></div>
+              <div class="spawn-pad ghost-spawn"><span class="mini-ghost"></span><span><strong>GHOST BASE</strong><small>Safe spawn · east wing</small></span></div>
+            </div>
+          </div>
+          <form class="setup-form" id="setup-form">
+            <div class="wizard-stage" data-wizard-stage="character">
+            <label class="field-label" for="username-input">PLAYER NAME</label>
+            <input class="name-input" id="username-input" maxlength="18" minlength="2" placeholder="Enter your name" autocomplete="nickname" required>
+            <span class="field-label team-label">SELECT YOUR RACE</span>
+            <div class="race-picker" id="race-picker" data-team="pacmen">
+              <button class="race-arrow" id="race-previous" type="button" aria-label="Select Pac-Men race">‹</button>
+              <div class="race-current" aria-live="polite">
+                <span class="race-preview race-preview-pac" id="race-preview" aria-hidden="true"><i></i></span>
+                <strong id="race-name">PAC-MEN</strong>
+                <small id="race-description">Collect · escape · team up</small>
+                <span class="race-selected" id="race-selected">RACE SELECTED · PAC-MEN</span>
+              </div>
+              <button class="race-arrow" id="race-next" type="button" aria-label="Select Ghost race">›</button>
+            </div>
+            <span class="field-label team-label">CHOOSE YOUR STARTING ABILITY</span>
+            <div class="starting-ability-picker" id="starting-ability-picker" role="group" aria-label="Choose your starting ability"></div>
+            <label class="character-tune"><span>CHARACTER COLOR</span><input id="creation-hue" type="range" min="0" max="359" step="1" value="45" aria-label="Character color"><output id="creation-hue-value">GOLD</output></label>
+            <label class="character-tune"><span>ABILITY COLOR</span><input id="creation-ability-hue" type="range" min="0" max="359" step="1" value="188" aria-label="Ability effect color"><output id="creation-ability-hue-value">CYAN</output></label>
+            <label class="character-tune"><span>CHARACTER SIZE</span><input id="creation-size" type="range" min="0.8" max="1.8" step="0.05" value="1.15"><output id="creation-size-value">115%</output></label>
+            <button class="narration-choice is-on" id="setup-narrator" type="button" aria-pressed="true">NARRATOR ON · READS THE FIELD GUIDE AND CHARACTER DIALOGUE</button>
+            <button class="narration-choice is-on" id="setup-autonomy" type="button" aria-pressed="true">CHARACTER AUTONOMY ON · OCCASIONAL HELPFUL NUDGE</button>
+            <label class="character-tune character-glow"><span>CHARACTER GLOW</span><input id="creation-glow" type="range" min="0.4" max="1.8" step="0.05" value="1"><output id="creation-glow-value">100%</output></label>
+            <button class="button button-primary start-button" id="creation-next" type="button">CHOOSE YOUR RUN <span>→</span></button>
+            <p class="setup-footnote">LOCAL PREVIEW · NO ACCOUNT NEEDED</p>
+            </div>
+            <div class="wizard-stage" data-wizard-stage="session" hidden>
+              <span class="field-label">CHOOSE YOUR FIRST ROOM</span>
+              <div class="session-picker" role="group" aria-label="Choose a game session">
+                <button type="button" class="session-option selected" data-session-mode="story" aria-pressed="true"><strong>STORY MODE</strong><small>Explore the expanding maze and meet its residents.</small></button>
+                <button type="button" class="session-option" data-session-mode="training" aria-pressed="false"><strong>TRAINING ROOM</strong><small>Practice movement, abilities, and combat without losing hearts.</small></button>
+                <button type="button" class="session-option" data-session-mode="rooms" aria-pressed="false"><strong>JOIN / CREATE ROOM</strong><small>Enter a room code, or leave it blank to create a room.</small></button>
+              </div>
+              <div class="setup-room-fields" id="setup-room-fields" hidden>
+                <label class="field-label" for="setup-server-url">ROOM SERVER</label>
+                <input class="name-input" id="setup-server-url" type="url" value="http://127.0.0.1:3100">
+                <label class="field-label team-label" for="setup-room-code">ROOM CODE · BLANK CREATES A ROOM</label>
+                <input class="name-input" id="setup-room-code" maxlength="10" placeholder="OPTIONAL ROOM CODE" autocomplete="off">
+              </div>
+              <label class="tutorial-choice"><input id="start-tutorial" type="checkbox" checked><span>Start with the narrated field-guide tutorial</span></label>
+              <div class="wizard-actions">
+                <button class="button button-quiet" id="creation-back" type="button">← CHARACTER</button>
+                <button class="button button-primary start-button" type="submit">BEGIN EXPEDITION <span>→</span></button>
+              </div>
+              <p class="setup-footnote">THE MAZE WILL BE READY SHORTLY · NO ACCOUNT NEEDED</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

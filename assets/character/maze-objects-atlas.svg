@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="128" viewBox="0 0 384 128">
+  <title>Neon Maze original maze objects</title>
+  <desc>Twelve transparent 64-pixel vector props for safe zones, crafting, and exploration.</desc>
+  <defs>
+    <linearGradient id="stone" x2=".2" y2="1"><stop stop-color="#315071"/><stop offset="1" stop-color="#12243a"/></linearGradient>
+    <linearGradient id="cyan-crystal" x2=".8" y2="1"><stop stop-color="#efffff"/><stop offset=".45" stop-color="#51eaff"/><stop offset="1" stop-color="#1786ce"/></linearGradient>
+    <linearGradient id="violet-crystal" x2=".8" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#c6a0ff"/><stop offset="1" stop-color="#7348d7"/></linearGradient>
+    <radialGradient id="beacon-glow"><stop stop-color="#3df2ef" stop-opacity=".36"/><stop offset="1" stop-color="#3df2ef" stop-opacity="0"/></radialGradient>
+  </defs>
+  <g id="frames">
+    <g transform="translate(0 0)">
+      <circle cx="32" cy="34" r="28" fill="url(#beacon-glow)"/>
+      <path d="M17 45h30l-4 8H21Z" fill="#172d46" stroke="#4de6f1" stroke-width="1.5"/>
+      <path d="M22 44V27l10-10 10 10v17Z" fill="url(#stone)" stroke="#61e9f3" stroke-width="1.5"/>
+      <path d="M27 42V29l5-6 5 6v13Z" fill="#13b7d2" opacity=".8"/>
+      <circle cx="32" cy="31" r="4" fill="#e6ffff"/><circle cx="32" cy="31" r="8" fill="none" stroke="#51edff" opacity=".65"/>
+    </g>
+    <g transform="translate(64 0)">
+      <path d="M73 47V27q0-18 17-18t17 18v20" fill="none" stroke="#294665" stroke-width="7"/>
+      <path d="M75 47V28q0-15 15-15t15 15v19" fill="none" stroke="#57dcff" stroke-width="2"/>
+      <path d="M78 46q12-13 24 0" fill="none" stroke="#b1f9ff" stroke-width="2"/>
+      <circle cx="90" cy="37" r="4" fill="#9df5ff"/><path d="M90 17v7m-7 5 5 5m9-5-5 5" stroke="#d9ffff" stroke-width="1.4"/>
+    </g>
+    <g transform="translate(128 0)">
+      <path d="m142 49 5-27 13-10 13 10 5 27Z" fill="url(#stone)" stroke="#5addec" stroke-width="1.5"/>
+      <path d="m150 32 10-10 10 10-10 10Z" fill="url(#cyan-crystal)"/>
+      <path d="M160 22v20m-10-10h20" stroke="#f4ffff" stroke-width="1.2" opacity=".8"/>
+      <circle cx="160" cy="32" r="20" fill="none" stroke="#55dff2" stroke-dasharray="2 4" opacity=".7"/>
+    </g>
+    <g transform="translate(192 0)">
+      <path d="M203 48 210 22h28l7 26Z" fill="url(#stone)" stroke="#526f90"/>
+      <path d="M209 23h30v5h-30z" fill="#ffbd63"/>
+      <rect x="214" y="32" width="20" height="13" rx="2" fill="#081420" stroke="#ffcf82"/>
+      <circle cx="219" cy="38" r="1.4" fill="#fff2c9"/><circle cx="225" cy="38" r="1.4" fill="#fff2c9"/><circle cx="230" cy="38" r="1.4" fill="#fff2c9"/>
+    </g>
+    <g transform="translate(256 0)">
+      <path d="M267 49h40l-3-6h-34z" fill="#17314c" stroke="#496788"/>
+      <path d="M270 25q4-10 9 0t9 0 9 0v19h-27Z" fill="#52ddaf" stroke="#9af8d4" stroke-width="1.2"/>
+      <path d="M279 42q-4-8 2-12 1 5 5 4 5 4 2 8Z" fill="#a7ffe5"/>
+      <circle cx="287" cy="29" r="20" fill="#57eab2" opacity=".1"/>
+    </g>
+    <g transform="translate(320 0)">
+      <path d="M337 47V18l15-8 15 8v29Z" fill="url(#stone)" stroke="#9b80ff" stroke-width="1.5"/>
+      <path d="m352 15 9 14-9 13-9-13Z" fill="url(#violet-crystal)"/>
+      <path d="M352 15v27m-9-13h18" stroke="#fff" opacity=".8"/>
+      <circle cx="352" cy="29" r="23" fill="none" stroke="#aa8cff" stroke-dasharray="3 4" opacity=".65"/>
+    </g>
+    <g transform="translate(0 64)">
+      <path d="M10 104h44M14 101l4-24h28l4 24Z" fill="url(#stone)" stroke="#577391" stroke-width="1.5"/>
+      <path d="M19 76q0-9 13-9t13 9" fill="none" stroke="#5ce8f3" stroke-width="3"/>
+      <circle cx="32" cy="82" r="6" fill="#69f3f1"/><circle cx="32" cy="82" r="12" fill="none" stroke="#69f3f1" opacity=".45"/>
+    </g>
+    <g transform="translate(64 64)">
+      <path d="M77 108V76h27v32M73 76h35l-4-7H77Z" fill="url(#stone)" stroke="#6e87a8" stroke-width="1.4"/>
+      <path d="M84 84h13M84 91h13M84 98h9" stroke="#9bb7d7" stroke-width="1.3"/>
+      <circle cx="98" cy="101" r="2" fill="#ffcf70"/>
+    </g>
+    <g transform="translate(128 64)">
+      <path d="M145 108V88l15-12 15 12v20Z" fill="url(#stone)" stroke="#6386a9" stroke-width="1.4"/>
+      <path d="M151 108V90l9-7 9 7v18Z" fill="#0b1827" stroke="#4bdce9"/>
+      <path d="M160 88v17m-7-8h14" stroke="#a6f6ff" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(192 64)">
+      <path d="m205 106 5-26 11 5 9-12 6 13 13-3-3 23Z" fill="url(#stone)" stroke="#7189a2"/>
+      <path d="M224 88v18m-8-8 8-8 8 8" fill="none" stroke="#ffc56a" stroke-width="2"/>
+      <circle cx="224" cy="79" r="2" fill="#fff4c7"/>
+    </g>
+    <g transform="translate(256 64)">
+      <path d="M268 106 278 78h20l10 28Z" fill="#16324b" stroke="#47dceb" stroke-width="1.5"/>
+      <path d="M284 79 279 97h10l-4 12 13-19h-10l4-11Z" fill="url(#cyan-crystal)"/>
+      <circle cx="288" cy="94" r="23" fill="none" stroke="#51e9ef" opacity=".4"/>
+    </g>
+    <g transform="translate(320 64)">
+      <path d="M331 106 341 78h20l10 28Z" fill="#231b43" stroke="#9d7cff" stroke-width="1.5"/>
+      <path d="M347 79 342 97h10l-4 12 13-19h-10l4-11Z" fill="url(#violet-crystal)"/>
+      <circle cx="352" cy="94" r="23" fill="none" stroke="#ab8aff" opacity=".4"/>
+    </g>
+  </g>
+</svg>

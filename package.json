@@ -1,0 +1,53 @@
+{
+  "name": "neon-maze-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "productName": "scp-pac_update",
+  "description": "SCP-PAC Update — an animated maze adventure by Waya Create Studios.",
+  "author": "Waya Sterubaut",
+  "copyright": "Copyright © 2026 Waya Create Studios",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"node server/index.js\" \"wait-on http://127.0.0.1:5173 && cross-env PACMAN_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "build": "vite build && node scripts/copy-assets.mjs",
+    "start": "npm run build && concurrently -k \"node server/index.js\" \"electron .\"",
+    "build:windows": "npm run build && electron-builder --win portable",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "peer": "^1.0.2",
+    "peerjs": "^1.5.5",
+    "phaser": "^3.90.0",
+    "socket.io": "^4.8.4",
+    "socket.io-client": "^4.8.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^44.8.0",
+    "electron-builder": "^26.0.12",
+    "vite": "^7.1.12",
+    "wait-on": "^8.0.4"
+  },
+  "build": {
+    "appId": "studio.waya.scppac.update",
+    "productName": "scp-pac_update",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "assets/**",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/Scp-PAC_Update.exe.svg",
+      "target": [
+        "portable"
+      ]
+    },
+    "artifactName": "scp-pac_update.exe"
+  }
+}

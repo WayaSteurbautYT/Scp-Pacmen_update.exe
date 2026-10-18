@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="icon-spark-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff9b50"/>
+      <stop offset="100%" stop-color="#ffe477"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#icon-spark-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 4l1 2l4 1l-2 4l4 -1l1 -4z"/>
+    <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="90 12 12" dur="0.6s" repeatCount="indefinite"/>
+  </g>
+</svg>

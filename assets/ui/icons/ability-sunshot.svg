@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <radialGradient id="icon-sunshot-grad">
+      <stop offset="0%" stop-color="#ffe477"/>
+      <stop offset="100%" stop-color="#ff6c87"/>
+    </radialGradient>
+  </defs>
+  <g fill="url(#icon-sunshot-grad)" stroke="#fff" stroke-width="1">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2l0 3M12 19l0 3M2 12l3 0M19 12l3 0M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41 -1.41M16.95 7.05l1.41 -1.41"/>
+    <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="2s" repeatCount="indefinite"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="icon-fragment-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#53e2b4"/>
+      <stop offset="100%" stop-color="#08c3c3"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#icon-fragment-grad)" stroke="#fff" stroke-width="1">
+    <path d="M12 4l4 8l-4 4l-4 -8Z"/>
+    <path d="M12 12l0 4"/>
+    <animateTransform attributeName="transform" type="scale" from="1 1" to="1.15 1.15" dur="1s" repeatCount="indefinite"/>
+  </g>
+</svg>
