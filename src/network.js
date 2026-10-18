@@ -35,6 +35,11 @@ export let localTypingActive = false;
 window.networkPlayers = [];
 window.networkHistory = [];
 window.voiceRoster = [];
+const desktopConfig = window.__PACMAN_DESKTOP_CONFIG__;
+if (desktopConfig?.roomServerUrl) {
+  $("#server-url").value = desktopConfig.roomServerUrl;
+  $("#setup-server-url").value = desktopConfig.roomServerUrl;
+}
 
 
 export function updateTypingIndicator() {
@@ -168,7 +173,7 @@ export function beginPeerVoice(button, socket, stream) {
   }
   const peer = new Peer(undefined, {
     host: import.meta.env.VITE_PEER_HOST || serverAddress.hostname,
-    port: Number(import.meta.env.VITE_PEER_PORT || 9000),
+    port: Number(import.meta.env.VITE_PEER_PORT || desktopConfig?.peerPort || 9000),
     path: import.meta.env.VITE_PEER_PATH || "/voice",
     key: import.meta.env.VITE_PEER_KEY || "peerjs",
     secure: import.meta.env.VITE_PEER_SECURE === "true" || (import.meta.env.VITE_PEER_SECURE !== "false" && serverAddress.protocol === "https:"),

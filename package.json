@@ -39,6 +39,7 @@
     "files": [
       "dist/**",
       "electron/**",
+      "server/**",
       "assets/**",
       "package.json"
     ],

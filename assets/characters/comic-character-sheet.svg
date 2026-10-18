@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 590" data-name="scp4605_comic_cast_bible_v1" role="img" aria-labelledby="title desc">
+<title id="title">SCP-PAC Containment — Comic Cast Sheet</title><desc id="desc">Reusable flat-vector designs for two D-Class test subjects, a researcher, a security guard, the O5 Council silhouettes, SCP-4605-A, and three anomalous ghosts.</desc>
+<defs>
+  <symbol id="dclass-8821" viewBox="0 0 120 190" data-name="dclass-8821">
+    <path fill="#303d45" d="M43 142h14v37H44zm23 0h14v37H66z"/><path fill="#242c31" d="M39 174h22v10H39zm26 0h22v10H65z"/>
+    <path fill="#b85f31" d="m35 64 12-12h26l12 12 10 17-9 8-7-9v67H39V80l-7 9-9-8z"/><path fill="#e0a477" d="M30 82h-9v-9l9-8zm60 0h9v-9l-9-8z"/>
+    <path fill="#98613f" d="M39 23q1-17 21-17t21 17v22q-2 20-21 25-19-5-21-25z"/><path fill="#262629" d="M37 29q-4-23 23-24 24 0 24 19l-4 7q-5-13-21-12-9 10-22 10z"/>
+    <ellipse cx="51" cy="39" rx="2.3" ry="4" fill="#455d66"/><ellipse cx="68" cy="39" rx="2.3" ry="4" fill="#455d66"/><rect x="55" y="52" width="10" height="2.5" rx="1" fill="#573c36"/>
+    <path fill="#e0c6a4" d="M46 86h28v4H46z"/><path fill="#29353b" d="M51 83h18v12H51z"/><path fill="#e8d4b4" d="M55 86h10v3H55z"/>
+  </symbol>
+  <symbol id="dclass-9012" viewBox="0 0 120 190" data-name="dclass-9012">
+    <path fill="#323d47" d="M43 142h14v37H44zm23 0h14v37H66z"/><path fill="#242b32" d="M39 174h22v10H39zm26 0h22v10H65z"/>
+    <path fill="#ca6c37" d="m35 64 12-12h26l12 12 10 17-9 8-7-9v67H39V80l-7 9-9-8z"/><path fill="#e7b797" d="M30 82h-9v-9l9-8zm60 0h9v-9l-9-8z"/>
+    <path fill="#ecc5a3" d="M39 23q1-17 21-17t21 17v22q-2 20-21 25-19-5-21-25z"/><path fill="#6b4737" d="M37 30q-2-24 23-25 23 1 25 19l-4 10q-9-7-20-7-12 0-24 11z"/><path fill="#6b4737" d="M38 37q-4 29 8 37l-5 12q-19-22-13-48zm44 0q8 22-4 37l7 9q17-27 4-54z"/>
+    <ellipse cx="51" cy="40" rx="2.3" ry="4" fill="#52707a"/><ellipse cx="68" cy="40" rx="2.3" ry="4" fill="#52707a"/><rect x="55" y="53" width="10" height="2.5" rx="1" fill="#784b43"/>
+    <path fill="#edcfaf" d="M46 86h28v4H46z"/><path fill="#34434b" d="M51 83h18v12H51z"/><path fill="#f0debc" d="M55 86h10v3H55z"/>
+  </symbol>
+  <symbol id="researcher-voss" viewBox="0 0 120 190" data-name="researcher-voss">
+    <path fill="#384b5a" d="M43 143h14v36H43zm23 0h14v36H66z"/><path fill="#293b4a" d="M38 175h23v9H38zm27 0h23v9H65z"/>
+    <path fill="#8caabd" d="M47 57h26l11 13 8 12-10 9-8-10v67H39V81l-8 10-10-9 9-13z"/><path fill="#eef2ed" d="m43 53 17 8-11 54-15-47zm34 0-17 8 11 54 15-47z"/><path fill="#f4f2e9" d="M39 66h42v83H39z"/><path fill="#5c8196" d="m50 58 10 8 10-8-5 19-5 11-5-11z"/>
+    <path fill="#e7c5a6" d="M39 23q1-17 21-17t21 17v22q-2 20-21 25-19-5-21-25z"/><path fill="#34393d" d="M37 29q-2-24 24-25 23 1 23 22l-5 7q-11-11-23-10-9 0-18 10z"/><rect x="38" y="36" width="19" height="13" rx="4" fill="none" stroke="#687b83" stroke-width="2.5"/><rect x="63" y="36" width="19" height="13" rx="4" fill="none" stroke="#687b83" stroke-width="2.5"/><path d="M57 41h6" stroke="#687b83" stroke-width="2"/><ellipse cx="49" cy="42" rx="2" ry="3" fill="#466473"/><ellipse cx="71" cy="42" rx="2" ry="3" fill="#466473"/><rect x="55" y="55" width="10" height="2" rx="1" fill="#8d5c50"/>
+    <rect x="66" y="101" width="9" height="17" rx="2" fill="#d9e5dc"/><path d="M68 105h5m-5 4h5m-5 4h4" stroke="#6a858a" stroke-width="1"/>
+  </symbol>
+  <symbol id="security-vale" viewBox="0 0 120 190" data-name="security-vale">
+    <path fill="#282e34" d="M43 143h14v36H43zm23 0h14v36H66z"/><path fill="#1e242a" d="M38 175h23v9H38zm27 0h23v9H65z"/>
+    <path fill="#35434a" d="m35 65 12-12h26l12 12 10 16-9 9-7-9v67H39V81l-7 9-9-9z"/><path fill="#43545a" d="M42 60h36v17H42z"/><path fill="#aeb8b1" d="M54 61h12v19H54z"/><path fill="#b9a264" d="M44 90h12v11H44z"/><path fill="#68777a" d="M66 86h12v22H66z"/>
+    <path fill="#c7a688" d="M39 24q1-17 21-17t21 17v22q-2 20-21 25-19-5-21-25z"/><path fill="#353b3d" d="M35 29q0-24 25-25 24 0 25 22l-6 3H41z"/><path fill="#263035" d="M33 24h54v9H33z"/><path fill="#465258" d="M47 15h27l8 9H39z"/><ellipse cx="51" cy="40" rx="2.2" ry="4" fill="#506169"/><ellipse cx="68" cy="40" rx="2.2" ry="4" fill="#506169"/><rect x="55" y="54" width="10" height="2" rx="1" fill="#67483e"/>
+  </symbol>
+  <symbol id="o5-council" viewBox="0 0 420 190" data-name="o5-council">
+    <path fill="#202a31" d="M4 150q1-39 38-47 37 8 38 47v28H4zM88 150q1-42 38-50 37 8 38 50v28H88zM172 150q1-46 38-54 37 8 38 54v28h-76zM256 150q1-42 38-50 37 8 38 50v28h-76zM340 150q1-39 38-47 37 8 38 47v28h-76z"/>
+    <ellipse cx="42" cy="62" rx="23" ry="31" fill="#c9b89f"/><ellipse cx="126" cy="55" rx="23" ry="31" fill="#b9b6a9"/><ellipse cx="210" cy="49" rx="23" ry="32" fill="#d1c9b8"/><ellipse cx="294" cy="55" rx="23" ry="31" fill="#a8b0ac"/><ellipse cx="378" cy="62" rx="23" ry="31" fill="#c1b59f"/>
+    <path fill="#242a30" d="M19 57q-3-32 24-34 28 1 26 34l-8-10q-19 5-37-4zM103 51q-2-31 24-31 27 1 25 31l-8-9q-18 6-35 2zM187 44q-1-31 24-31 27 1 25 33l-10-10q-17 7-33 4zM271 51q-2-31 24-31 27 1 25 31l-8-9q-18 6-35 2zM355 57q-3-32 24-34 28 1 26 34l-8-10q-19 5-37-4z"/>
+    <path fill="#172127" d="M0 151h420v25H0z"/><path fill="#2b3539" d="M0 176h420v14H0z"/><circle cx="210" cy="49" r="3.5" fill="#e6d6b0"/><path d="M201 70h18" stroke="#74685e" stroke-width="3"/>
+  </symbol>
+  <symbol id="scp-4605-a" viewBox="0 0 160 160" data-name="scp-4605-a">
+    <circle cx="80" cy="80" r="72" fill="#00f5d4" opacity=".12"/><path fill="#00d9c0" d="M80 12a68 68 0 1 0 0 136 68 68 0 0 0 0-136m0 0 55 35H80z"/><path fill="#e5fff7" d="M82 48c13 0 20 12 20 29 0 16-7 26-20 26s-19-10-19-26c0-17 6-29 19-29"/><ellipse cx="88" cy="70" rx="6" ry="9" fill="#19434b"/><circle cx="90" cy="66" r="2.5" fill="#fff"/><path fill="#06272a" d="M80 80h62q-22 38-62 0"/><path fill="#ff8b72" d="M86 84q22 0 36 2-14 14-29 11z"/>
+  </symbol>
+  <symbol id="ghost-blinky" viewBox="0 0 130 150" data-name="ghost-blinky">
+    <path fill="#ef6671" d="M16 136V64a49 49 0 0 1 98 0v72l-19-15-17 15-17-15-18 15-14-15z"/><ellipse cx="50" cy="66" rx="13" ry="18" fill="#fff"/><ellipse cx="84" cy="66" rx="13" ry="18" fill="#fff"/><circle cx="54" cy="69" r="6" fill="#314957"/><circle cx="88" cy="69" r="6" fill="#314957"/><path d="M55 102q15 9 30 0" fill="none" stroke="#7d3545" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ghost-pinky" viewBox="0 0 130 150" data-name="ghost-pinky">
+    <path fill="#efa0bb" d="M16 136V64a49 49 0 0 1 98 0v72l-19-15-17 15-17-15-18 15-14-15z"/><ellipse cx="50" cy="66" rx="13" ry="18" fill="#fff"/><ellipse cx="84" cy="66" rx="13" ry="18" fill="#fff"/><circle cx="54" cy="69" r="6" fill="#314957"/><circle cx="88" cy="69" r="6" fill="#314957"/><path d="M52 102q16-14 32 0" fill="none" stroke="#94485e" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ghost-inky" viewBox="0 0 130 150" data-name="ghost-inky">
+    <path fill="#44bbd0" d="M16 136V64a49 49 0 0 1 98 0v72l-19-15-17 15-17-15-18 15-14-15z"/><ellipse cx="50" cy="66" rx="13" ry="18" fill="#fff"/><ellipse cx="84" cy="66" rx="13" ry="18" fill="#fff"/><circle cx="54" cy="69" r="6" fill="#314957"/><circle cx="88" cy="69" r="6" fill="#314957"/><path d="M54 101h27" stroke="#235868" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+</defs>
+<rect width="1040" height="590" rx="18" fill="#d9e4e4"/><path fill="#c3d4d9" d="M0 390h1040v200H0z"/><path d="M0 390h1040" stroke="#a6bdc4" stroke-width="4"/>
+<text x="38" y="46" fill="#26383e" font-family="monospace" font-size="20" font-weight="bold" letter-spacing="3">SCP-PAC // COMIC CAST SHEET</text><text x="38" y="72" fill="#567079" font-family="monospace" font-size="12">DATA NAME: scp4605_comic_cast_bible_v1 · FLAT VECTOR / LINeless / MUTED FACILITY PALETTE</text>
+<g transform="translate(24 108)"><use href="#dclass-8821" x="0" y="0" width="110" height="174"/><text x="55" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">D-8821 / MARLOW</text></g>
+<g transform="translate(155 108)"><use href="#dclass-9012" x="0" y="0" width="110" height="174"/><text x="55" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">D-9012 / IBARRA</text></g>
+<g transform="translate(287 108)"><use href="#researcher-voss" x="0" y="0" width="110" height="174"/><text x="55" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">DR. VOSS / RESEARCH</text></g>
+<g transform="translate(418 108)"><use href="#security-vale" x="0" y="0" width="110" height="174"/><text x="55" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">OFFICER VALE</text></g>
+<g transform="translate(546 108)"><use href="#o5-council" x="0" y="23" width="190" height="136"/><text x="95" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">O5 / REMOTE PANEL</text></g>
+<g transform="translate(748 112)"><use href="#scp-4605-a" x="0" y="0" width="145" height="145"/><text x="72" y="194" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="12">SCP-4605-A</text></g>
+<g transform="translate(900 131)"><use href="#ghost-blinky" x="0" y="0" width="50" height="62"/><use href="#ghost-pinky" x="48" y="25" width="48" height="58"/><use href="#ghost-inky" x="22" y="81" width="50" height="62"/><text x="50" y="176" text-anchor="middle" fill="#34484e" font-family="monospace" font-size="11">GHOSTS</text></g>
+<text x="38" y="432" fill="#30454a" font-family="monospace" font-size="13">IDENTITY LOCKS</text><text x="38" y="457" fill="#536c72" font-family="monospace" font-size="12">D-8821: short dark hair · warm-brown skin · orange jumpsuit · square ID patch</text><text x="38" y="480" fill="#536c72" font-family="monospace" font-size="12">D-9012: long side-swept brown hair · light skin · orange jumpsuit · calm eyes</text><text x="38" y="503" fill="#536c72" font-family="monospace" font-size="12">DR. VOSS: dark bob · pale coat · blue shirt · narrow glasses · field notebook</text><text x="38" y="526" fill="#536c72" font-family="monospace" font-size="12">OFFICER VALE: peaked cap · graphite uniform · gold badge · steady posture</text><text x="38" y="549" fill="#536c72" font-family="monospace" font-size="12">O5: five anonymous silhouettes · SCP-4605-A: aquamarine chomp / single eye · ghosts: flat pastel shapes</text>
+</svg>
