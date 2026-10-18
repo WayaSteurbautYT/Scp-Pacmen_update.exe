@@ -1,8 +1,10 @@
 # SCP-PAC_UPDATE.EXE
 
-A story-driven, animated maze RPG with SCP-inspired containment fiction, Pac-Man-style collecting and pursuit, survival hearts and hunger, factions, abilities, inventory, and local progression. Built with Phaser 3, JavaScript, Vite, Electron, Socket.IO, and animated SVG art by Waya Create Studios.
+A story-driven, animated maze RPG with SCP-inspired containment fiction, Pac-Man-style collecting and pursuit, survival hearts and hunger, factions, abilities, inventory, and local progression. Built with Phaser 3, JavaScript, Vite, Electron, Socket.IO, and animated SVG art by WayaCreate Studios.
 
 > **Status:** playable Windows desktop prototype. This repository contains the game source and art; it is not yet a Steam release. Online rooms relay presence, movement, chat, and maze expansion, while combat, health, and progression remain local/client-side.
+
+**Privacy:** [read the game privacy policy](public/privacy.html). **Microsoft Store:** see the [release preparation guide](docs/MICROSOFT_STORE.md) for the MSIX build and Partner Center identity steps.
 
 ## What the game looks like
 
@@ -78,7 +80,7 @@ Run the existing automated checks with `npm test`.
 
 ## Rooms and online limits
 
-For LAN play, run the dev server on the host and let other players connect to the host's Vite address on port `5173`; share the same room code. Room relay and PeerJS voice signaling use ports `3100` and `9000` by default in development. Packaged desktop builds start local services and select nearby free ports; they support same-computer rooms. Internet rooms require a publicly hosted Node server, HTTPS/WSS, TURN for reliable voice, server-side gameplay validation, and moderation/privacy work.
+For LAN play, run the dev server on the host and let other players connect to the host's Vite address on port `5173`; share the same room code. Room relay and PeerJS voice signaling use ports `3100` and `9000` by default in development. Packaged desktop builds start local services and select nearby free ports; they support same-computer rooms. Internet rooms require a publicly hosted Node server, HTTPS/WSS, TURN for reliable voice, server-side gameplay validation, and moderation/privacy work. See [Microsoft Store and multiplayer hosting notes](docs/MICROSOFT_STORE.md).
 
 Accounts, cloud saves, global rankings, authoritative PvP/economy, purchases, and a Steamworks integration are not implemented. See [ROADMAP.md](ROADMAP.md) for the current boundaries and next steps.
 

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "productName": "scp-pac_update",
-  "description": "SCP-PAC Update — an animated maze adventure by Waya Create Studios.",
-  "author": "Waya Sterubaut",
-  "copyright": "Copyright © 2026 Waya Create Studios",
+  "description": "SCP-PAC Update — an animated maze adventure by WayaCreate Studios.",
+  "author": "WayaCreate Studios",
+  "copyright": "Copyright © 2026 WayaCreate Studios",
   "type": "module",
   "main": "electron/main.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "build": "vite build && node scripts/copy-assets.mjs",
     "start": "npm run build && concurrently -k \"node server/index.js\" \"electron .\"",
     "build:windows": "npm run build && electron-builder --win portable",
+    "build:windows:store": "npm run build && electron-builder --config electron-builder.store.cjs --win appx",
     "test": "node --test"
   },
   "dependencies": {

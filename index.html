@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/src/style.css" />
     <link rel="icon" type="image/svg+xml" href="/assets/Scp-PAC_Update.exe.svg" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/assets/neon-maze-icon.svg" sizes="32x32 48x48 64x64 128x128 256x256">
-    <title>SCP-PAC_UPDATE.EXE — Waya Create Studios</title>
+    <title>SCP-PAC_UPDATE.EXE — WayaCreate Studios</title>
   </head>
   <body>
     <div class="app-shell">
@@ -19,12 +19,13 @@
         <a class="brand" href="#" aria-label="Open SCP-PAC home" id="home-link">
           <img class="brand-mark" src="/assets/neon-maze-icon.svg" alt="" aria-hidden="true">
           <span class="brand-copy">
-            <span class="brand-kicker">WAYA CREATE STUDIOS</span>
+            <span class="brand-kicker">WAYACREATE STUDIOS</span>
             <span class="brand-title">SCP-PAC_UPDATE.EXE</span>
           </span>
         </a>
         <div class="topbar-right">
           <span class="connection" id="connection-state"><span class="status-dot"></span><span id="connection-state-label">LOCAL SESSION</span></span>
+          <button class="privacy-link" type="button" data-open-privacy>PRIVACY</button>
           <span class="version">DESKTOP PROTOTYPE 01</span>
         </div>
       </header>
@@ -132,6 +133,8 @@
                       <label class="menu-range"><span>CHARACTER SIZE</span><input type="range" min="0.8" max="1.8" step="0.05" value="1.15" data-character-size><output>115%</output></label>
                       <button type="button" data-menu-action="tutorial">START TUTORIAL</button>
                       <button type="button" data-menu-action="change-profile">CHANGE PLAYER</button>
+                      <button type="button" data-menu-action="privacy">PRIVACY &amp; DATA</button>
+                      <button type="button" data-menu-action="delete-local-data">DELETE LOCAL GAME DATA</button>
                       <button type="button" data-menu-action="home">GO TO HOME</button>
                       <button type="button" data-menu-action="restart">NEW RUN</button>
                     </div>
@@ -279,6 +282,14 @@
           </aside>
         </section>
       </main>
+
+      <dialog class="privacy-dialog" id="privacy-dialog" aria-labelledby="privacy-dialog-title">
+        <div class="privacy-dialog-head">
+          <div><p class="eyebrow">PLAYER INFORMATION</p><h2 id="privacy-dialog-title">Privacy &amp; data</h2></div>
+          <button class="privacy-dialog-close" type="button" data-close-privacy aria-label="Close privacy information">×</button>
+        </div>
+        <iframe class="privacy-frame" src="/privacy.html" title="SCP-PAC privacy policy"></iframe>
+      </dialog>
 
       <footer class="footer">
         <span>PURE ARCADE ENERGY.</span>

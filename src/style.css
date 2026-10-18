@@ -28,6 +28,15 @@ button { font: inherit; }
 .brand-kicker, .eyebrow { color: #91a9c7; font-family: "DM Mono", monospace; font-size: 10px; font-weight: 500; letter-spacing: .17em; }
 .brand-title { color: #f5f8ff; font-size: 17px; font-weight: 800; letter-spacing: .04em; }
 .topbar-right { display: flex; align-items: center; gap: 24px; }
+.privacy-link { border: 1px solid #263b54; border-radius: 7px; padding: 7px 10px; background: #101b2b; color: #92abc5; cursor: pointer; font: 700 9px/1.2 "DM Mono", monospace; letter-spacing: .11em; }
+.privacy-link:hover, .privacy-link:focus-visible { border-color: #48bba9; color: #66e2d2; }
+.privacy-dialog { width: min(760px, calc(100vw - 28px)); max-width: none; max-height: min(800px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid #2a435b; border-radius: 14px; background: #08111d; color: #d9e5f5; box-shadow: 0 28px 100px #000b; }
+.privacy-dialog::backdrop { background: #02060bd9; backdrop-filter: blur(5px); }
+.privacy-dialog-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 19px 13px; border-bottom: 1px solid #1c2d42; }
+.privacy-dialog-head .eyebrow { margin: 0 0 4px; }
+.privacy-dialog-head h2 { margin: 0; color: #f1f6ff; font-size: 19px; }
+.privacy-dialog-close { width: 34px; height: 34px; border: 1px solid #263b54; border-radius: 8px; background: #101b2b; color: #d9e5f5; font-size: 22px; cursor: pointer; }
+.privacy-frame { display: block; width: 100%; height: min(650px, calc(100vh - 115px)); border: 0; background: #08111d; }
 .connection, .version, .panel-label, .level-label, .squad-status { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .1em; color: #9fb2ca; }
 .connection { display: flex; align-items: center; gap: 9px; }
 .status-dot { display: inline-block; width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #53e2b4; box-shadow: 0 0 10px #53e2b4a6; }

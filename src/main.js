@@ -85,6 +85,16 @@ renderLeaderboard();
 const panelLabel = document.querySelector(".panel-label");
 
 
+const privacyDialog = $("#privacy-dialog");
+for (const button of document.querySelectorAll("[data-open-privacy]")) {
+  button.addEventListener("click", () => privacyDialog.showModal());
+}
+$("[data-close-privacy]").addEventListener("click", () => privacyDialog.close());
+privacyDialog.addEventListener("click", (event) => {
+  if (event.target === privacyDialog) privacyDialog.close();
+});
+
+
 // The status label lives in the game panel header. If a markup change ever
 // removes it again, skip the cosmetic update instead of throwing, which would
 // stop every listener registered below from running.
@@ -395,6 +405,16 @@ $("#game-menu").addEventListener("click", async (event) => {
   const action = event.target.closest("[data-menu-action]")?.dataset.menuAction;
   if (action === "tutorial") {
     openTutorial();
+  }
+  if (action === "privacy") {
+    privacyDialog.showModal();
+  }
+  if (action === "delete-local-data") {
+    const confirmed = window.confirm("Delete this device's saved player profile, progress, inventory, scores, and settings? This cannot be undone.");
+    if (confirmed) {
+      localStorage.clear();
+      window.location.reload();
+    }
   }
   if (action === "restart") {
     game.scene.getScene("maze").closeGameMenu();
