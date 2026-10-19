@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { io as createClient } from "socket.io-client";
 import { cleanName, cleanRoomCode, createRoomServer, isAllowedOrigin } from "../server/room-server.js";
+import { isOpen } from "../src/maze.js";
 
 function waitFor(socket, event) {
   return new Promise((resolve) => socket.once(event, resolve));
@@ -23,6 +24,7 @@ test("room validation normalizes codes and rejects untrusted origins", () => {
   assert.equal(cleanName("  Player  "), "Player");
   assert.equal(cleanName("\n "), null);
   assert.equal(isAllowedOrigin("null"), true);
+  assert.equal(isAllowedOrigin("scp-pac://app"), true);
   assert.equal(isAllowedOrigin("http://192.168.1.20:5173"), true);
   assert.equal(isAllowedOrigin("https://malicious.example"), false);
   const previousOrigins = process.env.PACMAN_ALLOWED_ORIGINS;
@@ -49,14 +51,23 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
       name: "PlayerOne",
       team: "pacmen",
       skin: "gold",
+      createRoom: true,
     });
     assert.equal(invalid.ok, false);
+    const missingRoom = await joinRoom(second, {
+      roomCode: "MISSING",
+      name: "PlayerTwo",
+      team: "ghosts",
+      skin: "cyan",
+    });
+    assert.equal(missingRoom.ok, false);
 
     const firstJoined = await joinRoom(first, {
       roomCode: "TEST42",
       name: "PlayerOne",
       team: "pacmen",
       skin: "gold",
+      createRoom: true,
     });
     const secondJoined = await joinRoom(second, {
       roomCode: "TEST42",
@@ -69,6 +80,7 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
       name: "Outsider",
       team: "pacmen",
       skin: "mint",
+      createRoom: true,
     });
     assert.equal(firstJoined.ok, true);
     assert.equal(secondJoined.seed, firstJoined.seed);
@@ -88,9 +100,17 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
     second.emit("chat:typing", { isTyping: true });
     assert.deepEqual(await typingReceived, { id: second.id, name: "PlayerTwo", isTyping: true });
 
+    const secondPosition = roomServer.rooms.get("TEST42").players.get(second.id);
+    const nextPosition = [[0, -1, "up"], [1, 0, "right"], [0, 1, "down"], [-1, 0, "left"]]
+      .map(([dx, dy, direction]) => ({ x: secondPosition.x + dx, y: secondPosition.y + dy, direction }))
+      .find(({ x, y }) => isOpen(roomServer.rooms.get("TEST42").maze, x, y));
+    assert.ok(nextPosition, "spawn should have an open neighboring maze tile");
     const stateReceived = waitFor(first, "game:state");
+    second.emit("game:state", nextPosition);
+    assert.deepEqual(await stateReceived, { id: second.id, ...nextPosition });
+    const blockedMove = waitFor(second, "lobby:error");
     second.emit("game:state", { x: 60, y: 18, direction: "left" });
-    assert.deepEqual(await stateReceived, { id: second.id, x: 60, y: 18, direction: "left" });
+    assert.match((await blockedMove).message, /Movement blocked/);
 
     const powerEventReceived = waitFor(second, "story:event");
     first.emit("story:event", { type: "pacman-power" });
@@ -98,7 +118,7 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
       type: "pacman-power",
       id: first.id,
       name: "PlayerOne",
-      duration: 8500,
+      duration: 45000,
     });
     let ghostTriggeredPowerEvent = false;
     const recordForbiddenEvent = () => { ghostTriggeredPowerEvent = true; };
@@ -114,6 +134,7 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
     assert.equal(chat.name, "PlayerTwo");
     assert.equal(chat.message, "Hello from the other team");
 
+    Object.assign(secondPosition, { x: 1, y: 18 });
     const expansionReceived = waitFor(first, "world:expand");
     const originExpansionReceived = waitFor(second, "world:expand");
     const expansionAccepted = new Promise((resolve) => {
@@ -128,20 +149,21 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
     assert.deepEqual(await expansionReceived, expectedExpansion);
     assert.deepEqual(await originExpansionReceived, expectedExpansion);
     assert.deepEqual(await expansionAccepted, { ok: true, sequence: 0 });
-    assert.equal(roomServer.rooms.get("TEST42").players.get(second.id).x, 72);
+    assert.equal(roomServer.rooms.get("TEST42").players.get(second.id).x, 13);
 
     const shiftedExpansionReceived = waitFor(second, "world:expand");
+    Object.assign(roomServer.rooms.get("TEST42").players.get(first.id), { x: 16, y: 1 });
     const shiftedExpansionAccepted = new Promise((resolve) => {
       first.emit("world:expand", {
         direction: "up",
-        anchor: { x: 4, y: 18 },
+        anchor: { x: 16, y: 1 },
         seed: 981,
-        sequence: 0,
+        sequence: 1,
       }, resolve);
     });
     assert.deepEqual(await shiftedExpansionReceived, {
       direction: "up",
-      anchor: { x: 16, y: 18 },
+      anchor: { x: 16, y: 1 },
       seed: 981,
       sequence: 1,
     });

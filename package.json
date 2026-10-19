@@ -17,6 +17,7 @@
     "test": "node --test"
   },
   "dependencies": {
+    "kokoro-js": "^1.2.1",
     "peer": "^1.0.2",
     "peerjs": "^1.5.5",
     "phaser": "^3.90.0",

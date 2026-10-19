@@ -1,6 +1,8 @@
 import { createServer } from "node:http";
 import { randomInt } from "node:crypto";
 import { Server } from "socket.io";
+import { COLUMNS, ROWS, createMaze, expandMaze, isOpen } from "../src/maze.js";
+import { POWER_DURATION } from "../src/constants.js";
 
 const MAX_PLAYERS = 12;
 const ROOM_CODE = /^[A-Z0-9]{4,10}$/;
@@ -12,7 +14,7 @@ const SPAWNS = {
 };
 
 function isAllowedOrigin(origin) {
-  if (!origin || origin === "null" || origin === "file://") return true;
+  if (!origin || origin === "null" || origin === "file://" || origin === "scp-pac://app") return true;
   const configuredOrigins = (process.env.PACMAN_ALLOWED_ORIGINS || "")
     .split(",")
     .map((value) => value.trim())
@@ -65,7 +67,7 @@ function rateLimited(socket, key, limit, windowMs) {
   return false;
 }
 
-export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
+export function createRoomServer({ host = "0.0.0.0", port = 3100, voicePort = 9000 } = {}) {
   const rooms = new Map();
   const httpServer = createServer((request, response) => {
     if (request.url !== "/health") {
@@ -86,6 +88,11 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
       callback(null, isAllowedOrigin(request.headers.origin));
     },
     maxHttpBufferSize: 64 * 1024,
+  });
+  io.engine.on("headers", (headers, request) => {
+    if (isAllowedOrigin(request.headers.origin)) {
+      headers["Access-Control-Allow-Private-Network"] = "true";
+    }
   });
 
   function emitRoster(roomCode) {
@@ -152,13 +159,18 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         return;
       }
       if (socket.data.roomCode === roomCode) {
-        acknowledge(callback, { ok: true, roomCode, seed: rooms.get(roomCode).seed, history: rooms.get(roomCode).history, players: roomPlayers(rooms.get(roomCode)) });
+        acknowledge(callback, { ok: true, roomCode, seed: rooms.get(roomCode).seed, history: rooms.get(roomCode).history, voicePort, players: roomPlayers(rooms.get(roomCode)) });
         return;
       }
       removeFromRoom(socket);
       let room = rooms.get(roomCode);
       if (!room) {
-        room = { seed: randomInt(1, 0xffffffff), history: [], players: new Map() };
+        if (payload?.createRoom !== true) {
+          acknowledge(callback, { ok: false, error: "Room not found. Check the code or create a new room." });
+          return;
+        }
+        const seed = randomInt(1, 0xffffffff);
+        room = { seed, maze: createMaze(COLUMNS, ROWS, seed), history: [], players: new Map() };
         rooms.set(roomCode, room);
       }
       if (room.players.size >= MAX_PLAYERS) {
@@ -175,6 +187,7 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         roomCode,
         seed: room.seed,
         history: room.history,
+        voicePort,
         players: roomPlayers(room),
       });
       emitRoster(roomCode);
@@ -192,6 +205,12 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         socket.emit("lobby:error", { message: "Ignored invalid player position." });
         return;
       }
+      const previous = socket.data.player;
+      const distance = Math.abs(x - previous.x) + Math.abs(y - previous.y);
+      if (distance > 1 || !isOpen(room.maze, x, y)) {
+        socket.emit("lobby:error", { message: "Movement blocked by the maze. Your position was not changed." });
+        return;
+      }
       Object.assign(socket.data.player, { x, y, direction });
       room.players.set(socket.id, socket.data.player);
       socket.to(roomCode).emit("game:state", { id: socket.id, x, y, direction });
@@ -206,7 +225,7 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         type: "pacman-power",
         id: socket.id,
         name: player.name,
-        duration: 8500,
+        duration: POWER_DURATION,
       });
     });
 
@@ -251,6 +270,18 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         if (previousExpansion.direction === "left") adjustedAnchor.x += 12;
         else if (previousExpansion.direction === "up") adjustedAnchor.y += 12;
       }
+      const actor = socket.data.player;
+      const width = room.maze[0].length;
+      const height = room.maze.length;
+      const atRequestedEdge = direction === "left" ? adjustedAnchor.x <= 1
+        : direction === "right" ? adjustedAnchor.x >= width - 2
+          : direction === "up" ? adjustedAnchor.y <= 1
+            : adjustedAnchor.y >= height - 2;
+      if (adjustedAnchor.x !== actor.x || adjustedAnchor.y !== actor.y || !atRequestedEdge || !isOpen(room.maze, actor.x, actor.y)) {
+        const error = "Move to the edge of the maze before expanding the world.";
+        acknowledge(callback, { ok: false, error });
+        return;
+      }
       const expansion = {
         direction,
         anchor: adjustedAnchor,
@@ -258,6 +289,7 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100 } = {}) {
         sequence: room.history.length,
       };
       room.history.push(expansion);
+      room.maze = expandMaze(room.maze, direction, adjustedAnchor, 12, expansion.seed);
       if (direction === "left") {
         for (const player of room.players.values()) player.x += 12;
       } else if (direction === "up") {

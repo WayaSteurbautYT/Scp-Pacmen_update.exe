@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createRoomServer } from "../server/room-server.js";
 import { PeerServer } from "peer";
+import os from "node:os";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.join(__dirname, "..");
@@ -12,6 +13,15 @@ const APP_SCHEME = "scp-pac";
 let desktopRoomServer;
 let desktopPeerServer;
 let desktopRuntimeConfig = null;
+
+function getLanAddress() {
+  for (const addresses of Object.values(os.networkInterfaces())) {
+    for (const address of addresses || []) {
+      if (!address.internal && address.family === "IPv4" && /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(address.address)) return address.address;
+    }
+  }
+  return null;
+}
 
 async function findAvailablePort(preferredPort) {
   for (let port = preferredPort; port < preferredPort + 20; port += 1) {
@@ -69,11 +79,11 @@ app.whenReady().then(async () => {
     try {
       const roomPort = await findAvailablePort(3100);
       const peerPort = await findAvailablePort(9000);
-      desktopRoomServer = createRoomServer({ host: "127.0.0.1", port: roomPort });
+      desktopRoomServer = createRoomServer({ host: "0.0.0.0", port: roomPort, voicePort: peerPort });
       await desktopRoomServer.listen();
-      desktopRuntimeConfig = { roomServerUrl: `http://127.0.0.1:${roomPort}`, peerPort };
+      desktopRuntimeConfig = { roomServerUrl: `http://127.0.0.1:${roomPort}`, peerPort, lanIp: getLanAddress() };
       PeerServer({
-        host: "127.0.0.1",
+        host: "0.0.0.0",
         port: peerPort,
         path: "/voice",
         key: "peerjs",

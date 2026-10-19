@@ -397,7 +397,7 @@ class MazeScene extends Phaser.Scene {
     $("#squad-title").textContent = nextProfile.team === "ghosts" ? "PAC-MAN TARGET" : "GHOST SQUAD";
     $("#tip-copy").textContent = nextProfile.team === "ghosts"
       ? "Use your pulse burst to catch the Pac-Bot. Your ghost squad will cover the maze."
-      : "Power orbs make the ghost squad vulnerable for a few seconds.";
+      : "Power orbs make the ghost squad vulnerable for 45 seconds.";
     this.visualScale = Number($("#visual-slider").value);
     this.pacmanBots = nextProfile.team === "ghosts"
       ? [{ ...this.pacmanSpawn, direction: "right", index: 0, name: "Mochi", health: 4, maxHealth: 4, hunger: 100, kind: "runner", team: "pacmen" }]
@@ -472,7 +472,7 @@ class MazeScene extends Phaser.Scene {
       this.playerTick += delta;
       for (let index = 0; index < this.ghostTicks.length; index += 1) this.ghostTicks[index] += delta;
 
-      const playerStepInterval = this.player.dashUntil > this.elapsed || this.player.phaseUntil > this.elapsed
+      const playerStepInterval = this.player.dashUntil > this.elapsed || this.player.phaseUntil > this.elapsed || this.player.pelletForm === "speed"
         ? 62 : this.player.crouching ? 260 : 125;
       if (this.playerTick >= playerStepInterval) {
         this.playerTick %= playerStepInterval;

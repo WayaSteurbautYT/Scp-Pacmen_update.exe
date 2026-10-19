@@ -179,7 +179,8 @@ export const CombatMixin = {
     this.player.attackStartedAt = this.elapsed;
     const weapon = WEAPONS.find(({ id }) => id === this.progression.equippedWeapon) || WEAPONS[0];
     const [dx, dy] = { up: [0, -1], right: [1, 0], down: [0, 1], left: [-1, 0] }[this.player.direction];
-    const hitRange = weapon.ranged ? weapon.range : 2;
+    const crunchBonus = this.player.pelletForm === "crunch" && this.player.pelletFormUntil > this.elapsed ? 2 : 1;
+    const hitRange = weapon.ranged ? weapon.range : weapon.range * crunchBonus;
     const hitPoint = this.centerOf(
       this.player.x + dx * hitRange,
       this.player.y + dy * hitRange,
@@ -190,9 +191,13 @@ export const CombatMixin = {
       const y = actor.y - this.player.y;
       const distance = Math.abs(x) + Math.abs(y);
       if (weapon.ranged) {
-        return distance > 0 && distance <= weapon.range
+        if (!(distance > 0 && distance <= weapon.range
           && x * dx + y * dy > 0
-          && (dx ? y === 0 : x === 0);
+          && (dx ? y === 0 : x === 0))) return false;
+        for (let step = 1; step < distance; step += 1) {
+          if (!isOpen(this.maze, this.player.x + dx * step, this.player.y + dy * step)) return false;
+        }
+        return true;
       }
       return distance > 0 && distance <= weapon.range
         && x * dx + y * dy >= 0
@@ -224,7 +229,6 @@ export const CombatMixin = {
       playGameSound("cooldown");
       return;
     }
-    this.player.abilityReadyAt = this.elapsed + (ability.cooldown || (ability.type === "invulnerable" ? 9000 : ability.type === "teleport" ? 4500 : 3200));
     this.player.attackUntil = this.elapsed + 420;
     if (ability.type === "teleport") {
       const targets = this.combatOpponents()
@@ -244,6 +248,7 @@ export const CombatMixin = {
         return;
       }
       const destination = destinations[0];
+      this.player.abilityReadyAt = this.elapsed + (ability.cooldown || 4500);
       this.playAbilityEffect(ability.effect, this.player);
       Object.assign(this.player, destination, { movedAt: this.elapsed, phaseUntil: this.elapsed + 420 });
       this.playAbilityEffect(ability.effect, target);
@@ -253,6 +258,7 @@ export const CombatMixin = {
       return;
     }
     if (ability.type === "invulnerable") {
+      this.player.abilityReadyAt = this.elapsed + (ability.cooldown || 9000);
       this.player.shieldUntil = this.elapsed + ability.duration;
       this.player.phaseUntil = this.elapsed + ability.duration;
       this.playAbilityEffect(ability.effect, this.player);
@@ -266,9 +272,15 @@ export const CombatMixin = {
       .filter(({ actor, distance }) => distance > 0 && distance <= ability.range && !actor.defeatedUntil)
       .sort((a, b) => a.distance - b.distance);
     const primary = targets[0]?.actor;
+    if (!ability.area && !primary) {
+      showToast(`${ability.name.toUpperCase()} MISSED`, "No rival was close enough. The ability remains ready.");
+      playGameSound("cooldown");
+      return;
+    }
     const hits = ability.area && primary
       ? targets.filter(({ actor }) => Math.abs(actor.x - primary.x) + Math.abs(actor.y - primary.y) <= (ability.radius || 2)).map(({ actor }) => actor)
       : primary ? [primary] : [];
+    if (hits.length) this.player.abilityReadyAt = this.elapsed + (ability.cooldown || 3200);
     const power = 1 + this.progression.permanentPower;
     for (const target of hits) {
       this.damageCombatTarget(target, ability.damage + power, ability.id);
@@ -401,7 +413,8 @@ export const CombatMixin = {
       }
       return;
     }
-    if (this.finished || this.player.invulnerableUntil > this.elapsed || this.player.shieldUntil > this.elapsed) return;
+    if (this.finished || this.player.invulnerableUntil > this.elapsed || this.player.shieldUntil > this.elapsed
+      || (this.player.pelletForm === "shield" && this.player.pelletFormUntil > this.elapsed)) return;
     this.hearts = Math.max(0, this.hearts - 1);
     this.player.health = this.hearts;
     this.player.damageUntil = this.elapsed + 260;
@@ -458,9 +471,11 @@ export const CombatMixin = {
     ];
     for (const pacman of pacmen) {
       if (pacman.eaten || pacman.defeatedUntil > this.elapsed || pacman.health <= 0) continue;
+      if (pacman === this.player && this.player.pelletForm === "phase" && this.player.pelletFormUntil > this.elapsed) continue;
       if (this.isInFactionSafeZone(pacman, "pacmen")) continue;
       for (const ghost of ghosts) {
         if (ghost.eaten || ghost.defeatedUntil > this.elapsed || ghost.health <= 0) continue;
+        if (ghost === this.player && this.player.pelletForm === "phase" && this.player.pelletFormUntil > this.elapsed) continue;
         if (pacman.x !== ghost.x || pacman.y !== ghost.y) continue;
         const contactReady = Math.max(pacman.contactReadyAt || 0, ghost.contactReadyAt || 0);
         if (contactReady > this.elapsed) continue;

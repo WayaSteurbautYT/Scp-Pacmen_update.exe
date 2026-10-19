@@ -71,12 +71,12 @@ export const MovementMixin = {
           const forms = ["speed", "crunch", "phase", "shield"];
           const form = forms[Math.floor(Math.random() * forms.length)];
           this.player.pelletForm = form;
-          this.player.pelletFormUntil = this.elapsed + 6000;
+          this.player.pelletFormUntil = this.elapsed + POWER_DURATION;
           const formLines = {
-            speed: "PELLET FORM · SPEED DEMON · You move faster for 6 seconds.",
-            crunch: "PELLET FORM · CRUNCH JAWS · Your bite range doubles for 6 seconds.",
-            phase: "PELLET FORM · GHOST PHASE · You can pass through walls for 6 seconds.",
-            shield: "PELLET FORM · SUGAR SHIELD · You take no damage for 6 seconds.",
+            speed: "PELLET FORM · SPEED DEMON · You move faster for 45 seconds.",
+            crunch: "PELLET FORM · CRUNCH JAWS · Your bite range doubles for 45 seconds.",
+            phase: "PELLET FORM · GHOST PHASE · Ignore enemy contact; walls stay solid for 45 seconds.",
+            shield: "PELLET FORM · SUGAR SHIELD · You take no damage for 45 seconds.",
           };
           this.showBubble(this.player, formLines[form], 2500);
           sayNarratedTimed(formLines[form], 200, "urgent");

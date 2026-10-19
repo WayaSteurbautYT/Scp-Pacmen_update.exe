@@ -240,11 +240,11 @@ export const AiMixin = {
         const npcForms = ["speed", "crunch", "phase", "shield"];
         const npcForm = npcForms[Math.floor(Math.random() * npcForms.length)];
         actor.pelletForm = npcForm;
-        actor.pelletFormUntil = this.elapsed + 6000;
+        actor.pelletFormUntil = this.elapsed + POWER_DURATION;
         const formLines = {
           speed: "Speed form active!",
           crunch: "Crunch jaws active!",
-          phase: "Ghost phase active!",
+          phase: "Enemy-phase active; maze walls remain solid.",
           shield: "Sugar shield active!",
         };
         this.showBubble(actor, formLines[npcForm], 2000);

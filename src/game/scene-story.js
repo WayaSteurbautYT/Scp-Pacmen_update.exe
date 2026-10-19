@@ -34,11 +34,11 @@ export const StoryMixin = {
     handleNetworkStoryEvent(storyEvent) {
       if (storyEvent?.type !== "pacman-power" || this.profile?.team !== "ghosts") return;
       this.remotePowerUntil = this.elapsed + Math.min(POWER_DURATION, Math.max(0, Number(storyEvent.duration) || POWER_DURATION));
-      const line = `${storyEvent.name || "A Pac-Man"} ate a power pellet! We have to go!`;
+      const line = `${storyEvent.name || "A Pac-Man"} ate a power pellet! We have 45 seconds to stay clear!`;
       appendChat("WISP RADIO", line, "npc-chat");
       const speaker = this.ghosts[0];
       if (speaker) this.showBubble(speaker, line, 2100);
-      showToast("STORY EVENT · POWER PELLET", "The Ghost crew is vulnerable for a short time.", "warning");
+      showToast("STORY EVENT · POWER PELLET", "The Ghost crew is vulnerable for 45 seconds.", "warning");
     },
 
 
@@ -233,7 +233,7 @@ export const StoryMixin = {
         const formEndLines = {
           speed: "Speed form faded.",
           crunch: "Crunch jaws returned to normal.",
-          phase: "Can no longer phase through walls.",
+          phase: "Enemy phase faded. Maze walls were solid the whole time.",
           shield: "Sugar shield dissolved.",
         };
         this.showBubble(this.player, formEndLines[form], 1500);

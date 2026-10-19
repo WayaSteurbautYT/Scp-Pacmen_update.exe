@@ -1,4 +1,5 @@
 import './comic-intro.css';
+import { sayNarratedTimed } from "./audio.js";
 
 const cast = '/assets/characters/comic-character-sheet.svg#';
 const vb = { pac:'0 0 160 160', ghost:'0 0 130 150', council:'0 0 420 190', person:'0 0 120 190' };
@@ -45,6 +46,7 @@ export class ComicIntro{
     const previousPage=this.index>=0?chapterPages[this.index]:null;this.playClick();this.index=Math.max(0,Math.min(index,chapterPages.length-1));const page=chapterPages[this.index],last=this.index===chapterPages.length-1;
     if(page.art==='shutdown')window.scpPacSfx?.alarm();
     if(page.art==='transfer')window.scpPacSfx?.startHum();else if(previousPage?.art==='transfer')window.scpPacSfx?.stopHum();
+    sayNarratedTimed(page.narration, 0, 'urgent');
     const typeToken=++this.typeToken;for(let i=0;i<7;i++)setTimeout(()=>{if(this.index===index&&this.typeToken===typeToken&&!this.root.hidden)window.scpPacSfx?.type()},i*75);
     this.root.innerHTML=`<div class="comic-shell story-page"><header class="comic-top"><div class="comic-brand"><img src="/assets/neon-maze-icon.svg" alt=""/><span>WAYA CREATE <b>STUDIOS</b><small>FOUNDATION SYSTEMS // SCP-4605</small></span></div><div class="comic-chapter">${page.kicker}</div><button class="comic-skip" data-action="skip">SKIP STORY <span>ESC</span></button></header><div class="comic-art-wrap">${artFor(page)}</div><section class="comic-caption"><div class="caption-head"><span class="comic-kicker">CASE FILE 4605 / PAGE ${String(this.index+1).padStart(2,'0')}</span><h1>${page.title}</h1></div><div class="dialogue-stack"><div class="dialogue"><b>${page.speaker}</b><p>“${page.quote}”</p></div>${page.reply?`<div class="dialogue reply"><b>${page.replySpeaker}</b><p>“${page.reply}”</p></div>`:''}</div><p class="narration">${page.narration}</p></section><footer class="comic-controls"><button class="comic-prev" data-action="previous" ${this.index===0?'disabled':''}>← PREVIOUS</button><span class="page-indicator">STORY FRAME <b>${String(this.index+1).padStart(2,'0')} / 08</b><i class="page-dots">${chapterPages.map((_,i)=>`<i class="${i===this.index?'active':''}"></i>`).join('')}</i></span><button class="comic-next" data-action="next">${last?'ENTER SIMULATION':'NEXT FRAME'} <span>${last?'▶':'→'}</span></button></footer></div>`;
     this.root.querySelector('[data-action="skip"]').addEventListener('click',()=>this.finish());

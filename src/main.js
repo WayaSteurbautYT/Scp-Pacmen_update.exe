@@ -1,7 +1,7 @@
 // Bootstrap: Phaser game config and DOM wiring.
 
 import Phaser from "phaser";
-import { playGameSound, playTone, sayNarrated, toggleMusic } from "./audio.js";
+import { playGameSound, playTone, sayNarrated, setNarrationEngine, stopNarration, toggleMusic } from "./audio.js";
 import "./intro.js";
 import { INVENTORY_ITEMS } from "./character-content.js";
 import { GAME_HEIGHT, GAME_WIDTH } from "./constants.js";
@@ -312,10 +312,25 @@ updateCameraZoom(Number.isFinite(savedCameraZoom) ? savedCameraZoom : Number($("
 const savedHudScale = Number(localStorage.getItem("neon-maze-hud-scale"));
 updateHudScale(Number.isFinite(savedHudScale) ? savedHudScale : Number($("#hud-scale-slider").value));
 updateCharacterSize(Number($("#visual-slider").value));
-$("#volume-slider").addEventListener("input", (event) => {
-  setVolume(Number(event.currentTarget.value) / 100);
-  $("#volume-value").value = `${Math.round(volume * 100)}%`;
-});
+for (const slider of [$("#volume-slider"), $("#settings-volume")]) {
+  slider.addEventListener("input", (event) => {
+    setVolume(Number(event.currentTarget.value) / 100);
+    for (const control of [$("#volume-slider"), $("#settings-volume")]) control.value = String(Math.round(volume * 100));
+    $("#volume-value").value = $("#settings-volume-value").value = `${Math.round(volume * 100)}%`;
+  });
+}
+const narratorEngineSelect = $("#narration-engine");
+narratorEngineSelect.value = localStorage.getItem("neon-maze-tts-engine") === "system" ? "system" : "kokoro";
+narratorEngineSelect.addEventListener("change", (event) => setNarrationEngine(event.currentTarget.value));
+for (const slider of [$("#volume-slider"), $("#settings-volume")]) slider.value = String(Math.round(volume * 100));
+$("#volume-value").value = $("#settings-volume-value").value = `${Math.round(volume * 100)}%`;
+$("#sound-toggle").textContent = soundEnabled ? "♫ SOUND ON" : "♫ SOUND OFF";
+$("#sound-toggle").classList.toggle("is-on", soundEnabled);
+$("#sound-toggle").setAttribute("aria-pressed", String(soundEnabled));
+$("#bubble-toggle").textContent = bubbleEnabled ? "◉ BUBBLES ON" : "◉ BUBBLES OFF";
+$("#bubble-toggle").classList.toggle("is-on", bubbleEnabled);
+$("#bubble-toggle").setAttribute("aria-pressed", String(bubbleEnabled));
+document.body.classList.toggle("hide-chat-bubbles", !bubbleEnabled);
 $("#sound-toggle").addEventListener("click", (event) => {
   setSoundEnabled(!soundEnabled);
   event.currentTarget.classList.toggle("is-on", soundEnabled);
@@ -338,14 +353,10 @@ $("#bubble-toggle").addEventListener("click", (event) => {
   window.dispatchEvent(new Event("game:bubbles"));
 });
 $("#narrator-toggle").addEventListener("click", (event) => {
-  if (!narratorEnabled && !("speechSynthesis" in window)) {
-    showToast("NARRATOR UNAVAILABLE", "This system does not provide speech synthesis.", "warning");
-    return;
-  }
   setNarratorEnabled(!narratorEnabled);
   localStorage.setItem("neon-maze-narrator", String(narratorEnabled));
   syncVoiceControls();
-  if (!narratorEnabled && "speechSynthesis" in window) window.speechSynthesis.cancel();
+  if (!narratorEnabled) stopNarration();
   if (narratorEnabled) {
     playGameSound("select");
     sayNarrated("Character narrator online. I promise to be only a little dramatic.");

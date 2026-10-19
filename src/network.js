@@ -22,6 +22,7 @@ export let voiceOpenTimeout;
 export let currentRoomCode = "";
 
 export const voicePeers = new Map();
+window.roomVoiceConfig = null;
 
 export const remoteAudio = new Map();
 
@@ -173,7 +174,7 @@ export function beginPeerVoice(button, socket, stream) {
   }
   const peer = new Peer(undefined, {
     host: import.meta.env.VITE_PEER_HOST || serverAddress.hostname,
-    port: Number(import.meta.env.VITE_PEER_PORT || desktopConfig?.peerPort || 9000),
+    port: Number(import.meta.env.VITE_PEER_PORT || window.roomVoiceConfig?.port || desktopConfig?.peerPort || 9000),
     path: import.meta.env.VITE_PEER_PATH || "/voice",
     key: import.meta.env.VITE_PEER_KEY || "peerjs",
     secure: import.meta.env.VITE_PEER_SECURE === "true" || (import.meta.env.VITE_PEER_SECURE !== "false" && serverAddress.protocol === "https:"),
@@ -255,6 +256,7 @@ export function startRoomConnection(event) {
   }
 
   const roomInput = $("#room-code");
+  const createRoom = !roomInput.value.trim();
   const roomCode = roomInput.value.trim().toUpperCase() || makeRoomCode();
   roomInput.value = roomCode;
   const button = lobbyButton;
@@ -274,6 +276,7 @@ export function startRoomConnection(event) {
       name: profile.name,
       team: profile.team,
       skin: profile.skin,
+      createRoom,
     }, (result) => {
       if (!result?.ok) {
         const message = result?.error || "Room join failed.";
@@ -288,10 +291,14 @@ export function startRoomConnection(event) {
         return;
       }
       currentRoomCode = result.roomCode;
+      window.roomVoiceConfig = { port: result.voicePort };
       window.networkSeed = result.seed;
       window.networkHistory = result.history;
       window.networkPlayers = result.players;
-      setNetworkStatus(`Room ${result.roomCode} · share the server address and code with friends.`, true);
+      const shareAddress = desktopConfig?.lanIp
+        ? `http://${desktopConfig.lanIp}:${desktopConfig.roomServerUrl.split(":").at(-1)}`
+        : serverAddress.origin;
+      setNetworkStatus(`Room ${result.roomCode} · share ${shareAddress} and the code with friends.`, true);
       button.disabled = false;
       button.textContent = "LEAVE";
       button.dataset.joined = "true";

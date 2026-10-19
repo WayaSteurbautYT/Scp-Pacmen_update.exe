@@ -3,9 +3,9 @@ import { PeerServer } from "peer";
 
 const port = Number(process.env.PACMAN_ROOM_PORT || 3100);
 const host = process.env.PACMAN_ROOM_HOST || "0.0.0.0";
-const roomServer = createRoomServer({ host, port });
-const address = await roomServer.listen();
 const peerPort = Number(process.env.PACMAN_PEER_PORT || 9000);
+const roomServer = createRoomServer({ host, port, voicePort: peerPort });
+const address = await roomServer.listen();
 const peerPath = process.env.PACMAN_PEER_PATH || "/voice";
 
 PeerServer({

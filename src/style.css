@@ -463,6 +463,9 @@ body.immersive-game .game-hud { position: absolute; z-index: 4; inset: 0; displa
 .menu-range input { width: 100%; }
 .menu-range output { color: #77e4ec; text-align: right; }
 .menu-range span { letter-spacing: .08em; }
+.menu-range:has(#narration-engine) { grid-template-columns: 1fr 1.2fr; }
+.menu-range:has(#settings-volume) { grid-template-columns: 1fr 1.2fr 38px; }
+.menu-range select { width: 100%; padding: 7px; border: 1px solid #30445d; border-radius: 5px; background: #0b1420; color: #d7e7f6; font: 9px "DM Mono", monospace; }
 @keyframes heart-hit { 0% { transform: scale(1) rotate(0); } 22% { transform: scale(1.45) rotate(-12deg); } 48% { transform: scale(.8) rotate(12deg); } 72% { transform: scale(1.15) rotate(-6deg); } 100% { transform: scale(1) rotate(0); } }
 .game-hud-actions { pointer-events: auto; }
 .game-hud-actions button, .game-menu-head button { min-height: 38px; padding: 0 13px; border: 1px solid #64dce86b; border-radius: 8px; background: #0a1929e8; color: #e8f8ff; cursor: pointer; font: 700 10px "DM Mono", monospace; letter-spacing: .1em; }
