@@ -37,6 +37,9 @@
   "build": {
     "appId": "studio.waya.scppac.update",
     "productName": "scp-pac_update",
+    "extraMetadata": {
+      "desktopName": "scp-pac_update"
+    },
     "directories": {
       "output": "release"
     },
@@ -66,7 +69,6 @@
       "category": "Game",
       "synopsis": "A neon maze adventure",
       "maintainer": "WayaCreate Studios <155236961+WayaSteurbautYT@users.noreply.github.com>",
-      "desktopName": "scp-pac_update",
       "syncDesktopName": true
     },
     "artifactName": "${productName}-${version}-${arch}.${ext}"
