@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; img-src 'self' data: blob:; connect-src 'self' http: https: ws: wss:"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' http: https: ws: wss:"
     />
     <meta name="theme-color" content="#07111c" />
     <link rel="stylesheet" href="/src/style.css" />
@@ -271,6 +271,8 @@
                 <button class="toggle-button" id="autonomy-toggle" type="button" aria-pressed="false">◉ AUTONOMY OFF</button>
                 <button class="toggle-button" id="mic-toggle" type="button" aria-pressed="false">MIC OFF</button>
               </div>
+              <div class="music-track-picker"><label class="music-file-button" for="music-file-input">LOAD MUSIC<input id="music-file-input" type="file" accept="audio/mpeg,audio/mp3,audio/wav,audio/ogg,audio/opus,audio/flac,audio/mp4,.mp3,.wav,.ogg,.opus,.flac,.m4a"></label></div>
+              <p class="music-track-status" id="music-track-status" aria-live="polite">Procedural loop · load MP3, WAV, OGG, FLAC, or M4A</p>
               <p class="network-status" id="voice-status">Voice is off until you enable your mic.</p>
               <label class="volume-control" for="volume-slider"><span>SOUND LEVEL</span><input id="volume-slider" type="range" min="0" max="100" value="65"><output id="volume-value">65%</output></label>
               <label class="volume-control" for="visual-slider"><span>CHARACTER SIZE</span><input id="visual-slider" type="range" min="0.8" max="1.8" step="0.05" value="1.15"><output id="visual-value">115%</output></label>

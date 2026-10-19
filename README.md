@@ -51,7 +51,19 @@ npm install
 npm run dev
 ```
 
-`npm run dev` starts Vite, the Socket.IO room/voice backend, and Electron. For the browser build use `npm run build`; to create the portable Windows app use `npm run build:windows`. Release files are written to the ignored `release/` directory.
+`npm run dev` starts Vite, the Socket.IO room/voice backend, and Electron. For the browser build use `npm run build`. Desktop packages:
+
+| Platform | Command | Package |
+| --- | --- | --- |
+| Windows | `npm run build:windows` | NSIS setup wizard (`.exe`), per-user install with Start Menu and desktop shortcuts |
+| Windows portable | `npm run build:windows:portable` | No-install `.exe` in `release/portable/` |
+| Linux | `npm run build:linux` on Linux | AppImage and Debian/Ubuntu `.deb` |
+
+On Windows, open the setup `.exe` and follow the installer. On Linux, make the AppImage executable and launch it, or install the `.deb` with your software manager (`sudo apt install ./scp-pac_update-*.deb`).
+
+The Linux icon is included in `assets/linux/icons/`. Windows and Linux installer builds also run in the **Desktop Installers** GitHub Actions workflow (manual run or a `v*` tag); each OS builds on its native runner. Release files are written to the ignored `release/` directory.
+
+Electron bundles its Node.js runtime with the app, so players do not need to install Node separately. The packaged Electron/Chromium runtime includes FFmpeg media decoding; use **LOAD MUSIC** in the in-game settings to play a local MP3, WAV, OGG, FLAC, or M4A track. The selected track stays on the device and must be selected again after restarting the app.
 
 Run the existing automated checks with `npm test`.
 

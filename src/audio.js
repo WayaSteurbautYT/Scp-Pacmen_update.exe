@@ -11,6 +11,8 @@ let kokoroPromise;
 let audioContext;
 let musicTimer;
 let musicNote = 0;
+let importedMusic;
+let importedMusicUrl;
 
 function getAudioContext() {
   audioContext ??= new AudioContext();
@@ -222,9 +224,50 @@ export function playGameSound(kind) {
 export function toggleMusic() {
   setMusicEnabled(!musicEnabled);
   if (musicEnabled) {
-    getAudioContext();
-    playMusicNote();
-    musicTimer = window.setInterval(playMusicNote, 340);
-  } else window.clearInterval(musicTimer);
+    if (importedMusic) {
+      importedMusic.volume = volume;
+      void importedMusic.play().catch((error) => {
+        console.warn("Could not play the selected music file.", error);
+        showToast("MUSIC COULD NOT PLAY", "Try an MP3, WAV, OGG, FLAC, or M4A audio file.", "warning");
+      });
+    } else {
+      getAudioContext();
+      playMusicNote();
+      musicTimer = window.setInterval(playMusicNote, 340);
+    }
+  } else {
+    window.clearInterval(musicTimer);
+    importedMusic?.pause();
+  }
   return musicEnabled;
+}
+
+export function loadMusicFile(file) {
+  if (!file) return;
+  if (!file.type.startsWith("audio/") && !/\.(mp3|wav|ogg|opus|flac|m4a)$/i.test(file.name)) {
+    showToast("AUDIO FILE REQUIRED", "Choose a supported local audio file.", "warning");
+    return;
+  }
+  importedMusic?.pause();
+  if (importedMusicUrl) URL.revokeObjectURL(importedMusicUrl);
+  importedMusicUrl = URL.createObjectURL(file);
+  importedMusic = new Audio(importedMusicUrl);
+  importedMusic.loop = true;
+  importedMusic.volume = volume;
+  importedMusic.addEventListener("error", () => {
+    showToast("AUDIO FORMAT NOT SUPPORTED", "Try an MP3, WAV, OGG, FLAC, or M4A file.", "warning");
+  }, { once: true });
+  window.clearInterval(musicTimer);
+  const status = document.querySelector("#music-track-status");
+  if (status) status.textContent = `Local track · ${file.name}`;
+  if (musicEnabled) {
+    void importedMusic.play().catch((error) => {
+      console.warn("Could not play the selected music file.", error);
+      showToast("MUSIC COULD NOT PLAY", "Press the music button to start the selected track.", "warning");
+    });
+  }
+}
+
+export function updateMusicVolume(value = volume) {
+  if (importedMusic) importedMusic.volume = Math.max(0, Math.min(1, value));
 }

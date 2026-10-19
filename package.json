@@ -12,7 +12,9 @@
     "dev": "concurrently -k \"vite --host 127.0.0.1\" \"node server/index.js\" \"wait-on http://127.0.0.1:5173 && cross-env PACMAN_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
     "build": "vite build && node scripts/copy-assets.mjs",
     "start": "npm run build && concurrently -k \"node server/index.js\" \"electron .\"",
-    "build:windows": "npm run build && electron-builder --win portable",
+    "build:windows": "npm run build && electron-builder --win nsis",
+    "build:windows:portable": "npm run build && electron-builder --win portable --config.directories.output=release/portable",
+    "build:linux": "npm run build && electron-builder --linux AppImage deb",
     "build:windows:store": "npm run build && electron-builder --config electron-builder.store.cjs --win appx",
     "test": "node --test"
   },
@@ -47,10 +49,23 @@
     ],
     "win": {
       "icon": "assets/Scp-PAC_Update.exe.svg",
-      "target": [
-        "portable"
-      ]
+      "target": ["nsis"],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
-    "artifactName": "scp-pac_update.exe"
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true
+    },
+    "linux": {
+      "icon": "assets/linux/icons",
+      "target": ["AppImage", "deb"],
+      "category": "Game",
+      "synopsis": "A neon maze adventure"
+    },
+    "artifactName": "${productName}-${version}-${arch}.${ext}"
   }
 }

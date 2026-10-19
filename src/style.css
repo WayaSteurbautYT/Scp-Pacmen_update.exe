@@ -147,6 +147,12 @@ input[type="range"] { width: 88px; height: 3px; accent-color: #22d7e5; cursor: p
 .settings-row { display: flex; gap: 6px; margin-top: 10px; }
 .toggle-button { flex: 1; min-width: 0; padding: 6px 2px; border: 1px solid #26384f; border-radius: 6px; background: #101a29; color: #7e91aa; cursor: pointer; font-family: "DM Mono", monospace; font-size: 6px; letter-spacing: .02em; }
 .toggle-button.is-on { border-color: #205568; color: #64dce8; }
+.music-file-button { display: inline-flex; align-items: center; justify-content: center; min-height: 29px; padding: 0 9px; border: 1px solid #26384f; border-radius: 6px; background: #101a29; color: #9cacc1; cursor: pointer; font-family: "DM Mono", monospace; font-size: 7px; letter-spacing: .04em; }
+.music-file-button:hover { border-color: #2d8a9b; color: #8bf1f4; }
+.music-file-button input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.music-file-button:focus-within { outline: 2px solid #49dce8; outline-offset: 2px; }
+.music-track-picker { display: flex; margin-top: 6px; }
+.music-track-status { margin: 5px 0 0; overflow: hidden; color: #70859f; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
 .volume-control { gap: 7px; margin-top: 9px; font-size: 8px; }
 .volume-control span { min-width: 75px; }
 .volume-control input[type="range"] { flex: 1; width: 50px; }

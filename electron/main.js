@@ -54,7 +54,9 @@ function createWindow() {
     minHeight: 700,
     backgroundColor: "#070d16",
     title: "SCP-PAC_UPDATE.EXE",
-    icon: path.join(appRoot, "assets", "Scp-PAC_Update.exe.svg"),
+    icon: process.platform === "linux"
+      ? path.join(appRoot, "assets", "linux", "icons", "512x512.png")
+      : path.join(appRoot, "assets", "Scp-PAC_Update.exe.svg"),
     autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,

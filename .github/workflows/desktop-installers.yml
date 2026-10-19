@@ -1,0 +1,48 @@
+name: Desktop Installers
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  windows-installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scp-pac-windows-installer
+          path: release/*.exe
+          if-no-files-found: error
+
+  linux-installers:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: sudo apt-get update && sudo apt-get install -y libfuse2 libopenjp2-tools
+      - run: npm ci
+      - run: npm run build:linux
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scp-pac-linux-installers
+          path: |
+            release/*.AppImage
+            release/*.deb
+          if-no-files-found: error

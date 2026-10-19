@@ -1,7 +1,7 @@
 // Bootstrap: Phaser game config and DOM wiring.
 
 import Phaser from "phaser";
-import { playGameSound, playTone, sayNarrated, setNarrationEngine, stopNarration, toggleMusic } from "./audio.js";
+import { loadMusicFile, playGameSound, playTone, sayNarrated, setNarrationEngine, stopNarration, toggleMusic, updateMusicVolume } from "./audio.js";
 import "./intro.js";
 import { INVENTORY_ITEMS } from "./character-content.js";
 import { GAME_HEIGHT, GAME_WIDTH } from "./constants.js";
@@ -315,6 +315,7 @@ updateCharacterSize(Number($("#visual-slider").value));
 for (const slider of [$("#volume-slider"), $("#settings-volume")]) {
   slider.addEventListener("input", (event) => {
     setVolume(Number(event.currentTarget.value) / 100);
+    updateMusicVolume(volume);
     for (const control of [$("#volume-slider"), $("#settings-volume")]) control.value = String(Math.round(volume * 100));
     $("#volume-value").value = $("#settings-volume-value").value = `${Math.round(volume * 100)}%`;
   });
@@ -343,6 +344,11 @@ $("#music-toggle").addEventListener("click", (event) => {
   event.currentTarget.classList.toggle("is-on", musicOn);
   event.currentTarget.setAttribute("aria-pressed", String(musicOn));
   event.currentTarget.textContent = musicOn ? "♪ MUSIC ON" : "♪ MUSIC OFF";
+});
+$("#music-file-input").addEventListener("change", (event) => {
+  const input = event.currentTarget;
+  loadMusicFile(input.files?.[0]);
+  input.value = "";
 });
 $("#bubble-toggle").addEventListener("click", (event) => {
   setBubbleEnabled(!bubbleEnabled);
