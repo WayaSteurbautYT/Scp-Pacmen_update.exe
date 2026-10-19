@@ -1,0 +1,8 @@
+{$ACCOUNT_DOMAIN} {
+  reverse_proxy accounts:80
+}
+
+{$ROOM_DOMAIN} {
+  reverse_proxy /voice* rooms:9000
+  reverse_proxy rooms:3100
+}

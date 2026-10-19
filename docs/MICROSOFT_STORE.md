@@ -35,4 +35,4 @@ The in-game privacy screen and policy are included in this repository. A GitHub 
 
 ## Multiplayer hosting
 
-The packaged desktop app starts its room and voice signaling services on the same computer. It does not provision an always-online public room server. Public cross-network multiplayer needs a separately deployed room/PeerJS service with HTTPS/WSS, an allowed-origin setting, and a stable address entered in the game. That service has its own operating cost and privacy/security responsibilities.
+The packaged desktop app connects to separately hosted multiplayer services; it does not open a LAN server. Account registration uses the PHP/MySQL API, while the Node service handles Socket.IO rooms and PeerJS signaling. Follow [the multiplayer deployment guide](../MULTIPLAYER_DEPLOYMENT.md) before listing online play, then publish the hosted endpoints and privacy details in the store listing. Hosting has operating and privacy/security responsibilities.

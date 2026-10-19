@@ -2,10 +2,15 @@
 
 import { Peer } from "peerjs";
 import { io } from "socket.io-client";
+import { accessToken, roomServerUrl } from "./auth.js";
 import { narratorEnabled, profile, setupScreen, $ } from "./state.js";
 import { appendChat, renderOnlineRoster, setNetworkStatus, setVoiceStatus } from "./ui.js";
 
 export let roomSocket;
+window.addEventListener("account:logout", () => {
+  stopLocalVoice();
+  roomSocket?.disconnect();
+});
 
 export let localVoiceStream;
 
@@ -36,11 +41,11 @@ export let localTypingActive = false;
 window.networkPlayers = [];
 window.networkHistory = [];
 window.voiceRoster = [];
-const desktopConfig = window.__PACMAN_DESKTOP_CONFIG__;
-if (desktopConfig?.roomServerUrl) {
-  $("#server-url").value = desktopConfig.roomServerUrl;
-  $("#setup-server-url").value = desktopConfig.roomServerUrl;
+if (roomServerUrl()) {
+  $("#server-url").value = roomServerUrl();
+  $("#setup-server-url").value = roomServerUrl();
 }
+if (import.meta.env.VITE_AUTH_API_URL) $("#setup-auth-url").value = import.meta.env.VITE_AUTH_API_URL;
 
 
 export function updateTypingIndicator() {
@@ -174,7 +179,7 @@ export function beginPeerVoice(button, socket, stream) {
   }
   const peer = new Peer(undefined, {
     host: import.meta.env.VITE_PEER_HOST || serverAddress.hostname,
-    port: Number(import.meta.env.VITE_PEER_PORT || window.roomVoiceConfig?.port || desktopConfig?.peerPort || 9000),
+    port: Number(import.meta.env.VITE_PEER_PORT || serverAddress.port || (serverAddress.protocol === "https:" ? 443 : 80)),
     path: import.meta.env.VITE_PEER_PATH || "/voice",
     key: import.meta.env.VITE_PEER_KEY || "peerjs",
     secure: import.meta.env.VITE_PEER_SECURE === "true" || (import.meta.env.VITE_PEER_SECURE !== "false" && serverAddress.protocol === "https:"),
@@ -245,11 +250,19 @@ export function startRoomConnection(event) {
     setupScreen.hidden = false;
     return;
   }
+  const token = accessToken();
+  if (!token) {
+    setNetworkStatus("Sign in or create an account in the room setup before joining online.");
+    setupScreen.hidden = false;
+    document.querySelector('[data-session-mode="rooms"]')?.click();
+    return;
+  }
 
   let serverAddress;
   try {
     serverAddress = new URL($("#server-url").value.trim());
     if (!["http:", "https:"].includes(serverAddress.protocol)) throw new Error("Use an http:// or https:// server address.");
+    if (serverAddress.protocol !== "https:" && !["localhost", "127.0.0.1"].includes(serverAddress.hostname)) throw new Error("Internet room servers must use HTTPS/WSS.");
   } catch (error) {
     setNetworkStatus(`Invalid room server address: ${error.message}`);
     return;
@@ -265,7 +278,7 @@ export function startRoomConnection(event) {
   setNetworkStatus(`Connecting to ${serverAddress.host}…`);
   stopLocalVoice();
   roomSocket?.disconnect();
-  roomSocket = io(serverAddress.origin, { timeout: 7000, reconnection: false });
+  roomSocket = io(serverAddress.origin, { auth: { token }, timeout: 7000, reconnection: false });
   const connectingSocket = roomSocket;
   window.roomSocket = roomSocket;
 
@@ -273,7 +286,6 @@ export function startRoomConnection(event) {
     const socket = roomSocket;
     socket.emit("lobby:join", {
       roomCode,
-      name: profile.name,
       team: profile.team,
       skin: profile.skin,
       createRoom,
@@ -295,10 +307,7 @@ export function startRoomConnection(event) {
       window.networkSeed = result.seed;
       window.networkHistory = result.history;
       window.networkPlayers = result.players;
-      const shareAddress = desktopConfig?.lanIp
-        ? `http://${desktopConfig.lanIp}:${desktopConfig.roomServerUrl.split(":").at(-1)}`
-        : serverAddress.origin;
-      setNetworkStatus(`Room ${result.roomCode} · share ${shareAddress} and the code with friends.`, true);
+      setNetworkStatus(`Room ${result.roomCode} · share this code with friends.`, true);
       button.disabled = false;
       button.textContent = "LEAVE";
       button.dataset.joined = "true";

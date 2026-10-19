@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { randomInt } from "node:crypto";
 import { Server } from "socket.io";
+import { verifyAccessToken } from "./auth-token.js";
 import { COLUMNS, ROWS, createMaze, expandMaze, isOpen } from "../src/maze.js";
 import { POWER_DURATION } from "../src/constants.js";
 
@@ -20,7 +21,7 @@ function isAllowedOrigin(origin) {
     .map((value) => value.trim())
     .filter(Boolean);
   if (configuredOrigins.includes(origin)) return true;
-  return /^http:\/\/(localhost|127\.0\.0\.1|10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})(?::\d{1,5})?$/.test(origin);
+  return /^http:\/\/(localhost|127\.0\.0\.1)(?::\d{1,5})?$/.test(origin);
 }
 
 function cleanName(value) {
@@ -69,6 +70,8 @@ function rateLimited(socket, key, limit, windowMs) {
 
 export function createRoomServer({ host = "0.0.0.0", port = 3100, voicePort = 9000 } = {}) {
   const rooms = new Map();
+  const tokenSecret = process.env.PACMAN_JWT_SECRET || "";
+  if (tokenSecret.length < 32) throw new Error("Set PACMAN_JWT_SECRET to the same random 32+ character value used by the PHP account API.");
   const httpServer = createServer((request, response) => {
     if (request.url !== "/health") {
       response.writeHead(404).end("Not found");
@@ -88,6 +91,12 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100, voicePort = 90
       callback(null, isAllowedOrigin(request.headers.origin));
     },
     maxHttpBufferSize: 64 * 1024,
+  });
+  io.use((socket, next) => {
+    const claims = verifyAccessToken(socket.handshake.auth?.token, tokenSecret);
+    if (!claims) return next(new Error("Login required. Sign in to an account before joining online rooms."));
+    socket.data.account = { id: claims.sub, username: claims.username };
+    next();
   });
   io.engine.on("headers", (headers, request) => {
     if (isAllowedOrigin(request.headers.origin)) {
@@ -151,11 +160,11 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100, voicePort = 90
 
     socket.on("lobby:join", async (payload, callback) => {
       const roomCode = cleanRoomCode(payload?.roomCode);
-      const name = cleanName(payload?.name);
+      const name = socket.data.account?.username;
       const team = payload?.team;
       const skin = payload?.skin;
       if (!roomCode || !name || !["pacmen", "ghosts"].includes(team) || !SKINS.has(skin)) {
-        acknowledge(callback, { ok: false, error: "Enter a valid room code, player name, team, and skin." });
+        acknowledge(callback, { ok: false, error: "Enter a valid room code, team, and skin." });
         return;
       }
       if (socket.data.roomCode === roomCode) {
@@ -233,7 +242,7 @@ export function createRoomServer({ host = "0.0.0.0", port = 3100, voicePort = 90
       const roomCode = socket.data.roomCode;
       const room = rooms.get(roomCode);
       const player = room?.players.get(socket.id);
-      const name = cleanName(payload?.name);
+      const name = player?.name;
       const team = payload?.team;
       const skin = payload?.skin;
       if (!player || !name || !["pacmen", "ghosts"].includes(team) || !SKINS.has(skin)) {

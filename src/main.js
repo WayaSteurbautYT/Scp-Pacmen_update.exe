@@ -7,6 +7,7 @@ import { INVENTORY_ITEMS } from "./character-content.js";
 import { GAME_HEIGHT, GAME_WIDTH } from "./constants.js";
 import MazeScene from "./game/MazeScene.js";
 import { updateProgressUI } from "./hud.js";
+import { account, accountRequest, clearAccount, setServiceUrls } from "./auth.js";
 import { handleMicToggle, roomSocket, setLocalTyping, startRoomConnection, syncVoiceControls } from "./network.js";
 import { renderLeaderboard } from "./profile.js";
 import { ABILITIES } from "./progression.js";
@@ -193,6 +194,7 @@ $("#setup-form").addEventListener("submit", (event) => {
   usernameInput.setCustomValidity("");
   applyProfile(nextProfile);
   if (selectedMode === "rooms") {
+    setServiceUrls($("#setup-auth-url").value, $("#setup-server-url").value);
     $("#server-url").value = $("#setup-server-url").value.trim();
     $("#room-code").value = $("#setup-room-code").value.trim();
     $("#network-form").requestSubmit();
@@ -225,6 +227,51 @@ for (const option of document.querySelectorAll(".session-option")) {
 }
 $("#setup-server-url").addEventListener("input", (event) => { $("#server-url").value = event.currentTarget.value; });
 $("#setup-room-code").addEventListener("input", (event) => { $("#room-code").value = event.currentTarget.value; });
+function renderAccountState(message = "") {
+  const signedIn = account();
+  $("#account-state").textContent = message || (signedIn ? `Signed in as ${signedIn.username}.` : "Not signed in · accounts are required for online rooms.");
+  $("#account-login").hidden = Boolean(signedIn);
+  $("#account-register").hidden = Boolean(signedIn);
+  $("#account-logout").hidden = !signedIn;
+}
+window.addEventListener("account:changed", () => renderAccountState());
+renderAccountState();
+async function submitAccount(action) {
+  const state = $("#account-state");
+  const email = $("#account-email").value.trim();
+  const username = $("#account-username").value.trim();
+  const password = $("#account-password").value;
+  setServiceUrls($("#setup-auth-url").value, $("#setup-server-url").value);
+  state.textContent = action === "register" ? "Creating account…" : "Signing in…";
+  $("#account-login").disabled = true;
+  $("#account-register").disabled = true;
+  try {
+    await accountRequest(action, action === "register" ? { email, username, password } : { identity: username, password });
+    $("#account-password").value = "";
+    renderAccountState();
+  } catch (error) {
+    renderAccountState(error.message);
+  } finally {
+    $("#account-login").disabled = false;
+    $("#account-register").disabled = false;
+  }
+}
+$("#account-login").addEventListener("click", () => submitAccount("login"));
+$("#account-register").addEventListener("click", () => {
+  const email = $("#account-email");
+  const username = $("#account-username");
+  email.setCustomValidity(email.value.trim() ? "" : "Enter an email address to register.");
+  username.setCustomValidity(/^[A-Za-z0-9_]{3,18}$/.test(username.value.trim()) ? "" : "Username must be 3–18 letters, numbers, or underscores.");
+  if (!email.reportValidity() || !username.reportValidity() || !$("#account-password").reportValidity()) return;
+  submitAccount("register");
+});
+$("#account-username").addEventListener("input", () => $("#account-username").setCustomValidity(""));
+$("#account-email").addEventListener("input", () => $("#account-email").setCustomValidity(""));
+$("#account-logout").addEventListener("click", () => {
+  window.dispatchEvent(new Event("account:logout"));
+  clearAccount();
+  $("#account-password").value = "";
+});
 usernameInput.addEventListener("input", () => usernameInput.setCustomValidity(""));
 $("#race-previous").addEventListener("click", () => {
   setRaceSelection("pacmen", true);

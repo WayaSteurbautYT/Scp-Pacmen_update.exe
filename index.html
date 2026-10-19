@@ -245,14 +245,14 @@
               <div class="card-heading"><span class="eyebrow"><span class="chat-glyph" aria-hidden="true">◉</span> LOBBY CHAT</span><span class="squad-status"><span class="status-dot"></span> LOCAL</span></div>
               <form class="network-form" id="network-form">
                 <label class="sr-only" for="server-url">Room server address</label>
-                <input id="server-url" type="url" value="http://127.0.0.1:3100" spellcheck="false" aria-label="Room server address">
+                <input id="server-url" type="url" value="" placeholder="HTTPS multiplayer server" spellcheck="false" aria-label="Room server address">
                 <div class="network-join-row">
                   <label class="sr-only" for="room-code">Room code</label>
                   <input id="room-code" maxlength="10" placeholder="ROOM CODE · BLANK = CREATE" autocomplete="off" spellcheck="false">
                   <button type="submit" id="lobby-button">JOIN</button>
                 </div>
               </form>
-              <p class="network-status" id="network-status" aria-live="polite">Room server is local. Enter a host IP to join over LAN.</p>
+              <p class="network-status" id="network-status" aria-live="polite">Sign in to join internet rooms. Local story play stays available.</p>
               <div class="online-roster" id="online-roster" aria-label="Online room players"></div>
               <div class="chat-feed" id="chat-feed" aria-live="polite">
                 <div class="chat-line"><span class="chat-author">SYSTEM</span><span>Welcome to Neon Maze. GLHF!</span></div>
@@ -371,8 +371,20 @@
                 <button type="button" class="session-option" data-session-mode="rooms" aria-pressed="false"><strong>JOIN / CREATE ROOM</strong><small>Enter a room code, or leave it blank to create a room.</small></button>
               </div>
               <div class="setup-room-fields" id="setup-room-fields" hidden>
-                <label class="field-label" for="setup-server-url">ROOM SERVER</label>
-                <input class="name-input" id="setup-server-url" type="url" value="http://127.0.0.1:3100">
+                <label class="field-label" for="setup-auth-url">PHP ACCOUNT API · HTTPS</label>
+                <input class="name-input" id="setup-auth-url" type="url" placeholder="https://accounts.example.com" autocomplete="url">
+                <label class="field-label team-label" for="setup-server-url">INTERNET MULTIPLAYER SERVER · HTTPS</label>
+                <input class="name-input" id="setup-server-url" type="url" placeholder="https://rooms.example.com" autocomplete="url">
+                <div class="account-box">
+                  <p class="account-state" id="account-state" aria-live="polite">Not signed in · accounts are required for online rooms.</p>
+                  <label class="field-label" for="account-email">EMAIL · REGISTERING</label>
+                  <input class="name-input" id="account-email" type="email" maxlength="254" placeholder="you@example.com" autocomplete="email">
+                  <label class="field-label team-label" for="account-username">USERNAME · OR EMAIL TO SIGN IN</label>
+                  <input class="name-input" id="account-username" maxlength="254" placeholder="3–18 letters, numbers, or _" autocomplete="username">
+                  <label class="field-label team-label" for="account-password">PASSWORD · 10+ CHARACTERS</label>
+                  <input class="name-input" id="account-password" type="password" minlength="10" maxlength="128" autocomplete="new-password" placeholder="Password">
+                  <div class="account-actions"><button class="button button-quiet" id="account-login" type="button">SIGN IN</button><button class="button button-primary" id="account-register" type="button">CREATE ACCOUNT</button><button class="button button-quiet" id="account-logout" type="button" hidden>SIGN OUT</button></div>
+                </div>
                 <label class="field-label team-label" for="setup-room-code">ROOM CODE · BLANK CREATES A ROOM</label>
                 <input class="name-input" id="setup-room-code" maxlength="10" placeholder="OPTIONAL ROOM CODE" autocomplete="off">
               </div>
@@ -381,7 +393,7 @@
                 <button class="button button-quiet" id="creation-back" type="button">← CHARACTER</button>
                 <button class="button button-primary start-button" type="submit">BEGIN EXPEDITION <span>→</span></button>
               </div>
-              <p class="setup-footnote">THE MAZE WILL BE READY SHORTLY · NO ACCOUNT NEEDED</p>
+              <p class="setup-footnote">ONLINE ROOMS REQUIRE AN ACCOUNT · STORY AND TRAINING ARE LOCAL</p>
             </div>
           </form>
         </div>

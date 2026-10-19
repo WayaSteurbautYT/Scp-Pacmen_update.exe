@@ -22,27 +22,28 @@
   <body>
     <p class="eyebrow">WAYA CREATE STUDIOS · PLAYER INFORMATION</p>
     <h1>SCP-PAC privacy policy</h1>
-    <p class="updated">Last updated: October 18, 2026</p>
+    <p class="updated">Last updated: October 19, 2026</p>
     <p>This policy describes what SCP-PAC stores or sends when you play the game. Microsoft’s privacy statement applies to Microsoft services; it does not replace this game’s policy.</p>
 
     <h2>Information stored on your device</h2>
-    <p>The game saves your player name and choices, local progress, inventory, scores, achievements, tutorial status, and settings in the app’s local storage on your device. This data is used to remember your game between sessions. The game does not require an account. Character narration uses your device’s speech synthesis and is not sent to our servers.</p>
+    <p>The game saves your player name and choices, local progress, inventory, scores, achievements, tutorial status, and settings in the app’s local storage on your device. Character narration uses your device’s speech synthesis and is not sent to our servers. Account credentials are only used for optional online rooms; local story and training play do not require an account.</p>
 
     <h2>Online rooms</h2>
-    <p>If you join an online room, the room server receives your chosen display name, team, appearance, room code, and live gameplay state needed to show players together. Chat messages and typing status are sent to that room while you are connected. If you enable voice, a temporary peer connection ID and microphone-enabled status are also shared for call setup. The room server in the desktop app keeps room state in memory for active sessions and does not write it to a game database. When you leave and the room becomes empty, its in-memory state is removed.</p>
+    <p>If you create an account, the PHP account service receives your email address and username. It stores them with a one-way password hash in its account database and issues a signed access token that remains in temporary app-session storage. Passwords are not sent to or stored by the room relay. Contact the operator of the account service to request account deletion.</p>
+    <p>If you join an online room, the room server receives your account username, team, appearance, room code, and live gameplay state needed to show players together. Chat messages and typing status are sent to that room while you are connected. If you enable voice, a temporary peer connection ID and microphone-enabled status are also shared for call setup. Active room state is held in memory and removed when its room becomes empty or the room service restarts.</p>
     <p>Your network connection also exposes your IP address to the room server you choose. If you connect to a server operated by someone else, that operator controls their own logs, storage, and privacy practices. Check with that operator before joining if you have questions.</p>
 
     <h2>Optional microphone and voice</h2>
     <p>Voice chat is off unless you choose to turn on the microphone and approve the operating system permission. The game uses microphone audio for live peer-to-peer voice calls; it does not record or save voice audio. Voice signaling uses the room and PeerJS services. Depending on network conditions, voice traffic may pass through a relay service configured by the room operator. The other players in the room can hear your voice while your microphone is enabled.</p>
 
     <h2>Analytics, advertising, and sharing</h2>
-    <p>The game does not include advertising, third-party analytics, account registration, or cloud save services. We do not sell player data. We do not intentionally collect precise location, camera, payment, or health information.</p>
+    <p>The game does not include advertising, third-party analytics, or cloud save services. We do not sell player data. The external account and multiplayer services are operated separately; their hosting provider may keep standard connection logs, including IP addresses. We do not intentionally collect precise location, camera, payment, or health information.</p>
 
     <h2>Your choices and deletion</h2>
     <p>You can review this policy from the game’s Privacy button. To remove saved profile and game data from this device, open the in-game menu, choose Settings, then choose “Delete local game data.” This permanently clears the app’s local storage. Leaving an online room disconnects you and removes your player from that session. Data on a third-party room server is controlled by that server’s operator.</p>
 
     <h2>Security and contact</h2>
-    <p>Local game data is stored by the app on your device. Room connections use Socket.IO over the address and protocol shown in the room settings; secure HTTPS/WSS depends on the server you choose. Do not use an untrusted room server for private conversations.</p>
+    <p>Local game data is stored by the app on your device. Internet account and room services must use HTTPS/WSS. Do not use an account or room server you do not trust for private conversations.</p>
     <p>For privacy or support questions, email <a href="mailto:Steurbautwaya703@gmail.com">Steurbautwaya703@gmail.com</a>.</p>
 
     <h2>Microsoft services</h2>

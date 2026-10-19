@@ -1,0 +1,63 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?Set MYSQL_DATABASE in .env}
+      MYSQL_USER: ${MYSQL_USER:?Set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - multiplayer-mysql:/var/lib/mysql
+      - ./php-auth/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    networks: [backend]
+
+  accounts:
+    build: ./php-auth
+    restart: unless-stopped
+    environment:
+      PACMAN_DB_DSN: mysql:host=mysql;dbname=${MYSQL_DATABASE};charset=utf8mb4
+      PACMAN_DB_USER: ${MYSQL_USER}
+      PACMAN_DB_PASSWORD: ${MYSQL_PASSWORD}
+      PACMAN_JWT_SECRET: ${PACMAN_JWT_SECRET:?Set a random 32+ character PACMAN_JWT_SECRET in .env}
+      PACMAN_ALLOWED_ORIGINS: ${PACMAN_ALLOWED_ORIGINS}
+    depends_on: [mysql]
+    networks: [backend]
+
+  rooms:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    environment:
+      PACMAN_ROOM_HOST: 0.0.0.0
+      PACMAN_ROOM_PORT: 3100
+      PACMAN_PEER_PORT: 9000
+      PACMAN_PEER_PATH: /voice
+      PACMAN_PEER_PROXIED: "true"
+      PACMAN_JWT_SECRET: ${PACMAN_JWT_SECRET:?Set a random 32+ character PACMAN_JWT_SECRET in .env}
+      PACMAN_ALLOWED_ORIGINS: ${PACMAN_ALLOWED_ORIGINS}
+    networks: [backend]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      ACCOUNT_DOMAIN: ${ACCOUNT_DOMAIN:?Set ACCOUNT_DOMAIN in .env}
+      ROOM_DOMAIN: ${ROOM_DOMAIN:?Set ROOM_DOMAIN in .env}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - ./Caddyfile.multiplayer:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [accounts, rooms]
+    networks: [backend]
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  multiplayer-mysql:
+  caddy-data:
+  caddy-config:

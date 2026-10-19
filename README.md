@@ -51,7 +51,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev` starts Vite, the Socket.IO room/voice backend, and Electron. For the browser build use `npm run build`. Desktop packages:
+`npm run dev` starts Vite and Electron. For the browser build use `npm run build`. Online rooms connect to separately hosted services. Desktop packages:
 
 | Platform | Command | Package |
 | --- | --- | --- |
@@ -92,9 +92,9 @@ Run the existing automated checks with `npm test`.
 
 ## Rooms and online limits
 
-For LAN play, run the dev server on the host and let other players connect to the host's Vite address on port `5173`; share the same room code. Room relay and PeerJS voice signaling use ports `3100` and `9000` by default in development. Packaged desktop builds start local services and select nearby free ports; they support same-computer rooms. Internet rooms require a publicly hosted Node server, HTTPS/WSS, TURN for reliable voice, server-side gameplay validation, and moderation/privacy work. See [Microsoft Store and multiplayer hosting notes](docs/MICROSOFT_STORE.md).
+Online rooms require an account and internet connection. Deploy the PHP/MySQL account API, Socket.IO room relay, PeerJS signaling, and HTTPS proxy with [the multiplayer deployment guide](MULTIPLAYER_DEPLOYMENT.md), then enter the account API and room server addresses in the game's room setup. The shared account database and JWT secret must be kept private. Voice uses WebRTC; some networks require a separately hosted TURN relay. The game still simulates most gameplay locally, so the server does not yet provide authoritative competitive play.
 
-Accounts, cloud saves, global rankings, authoritative PvP/economy, purchases, and a Steamworks integration are not implemented. See [ROADMAP.md](ROADMAP.md) for the current boundaries and next steps.
+Account registration and authenticated rooms are implemented, but cloud saves, global rankings, authoritative PvP/economy, purchases, and a Steamworks integration are not. See [BETA_READINESS.md](BETA_READINESS.md) and [ROADMAP.md](ROADMAP.md) for remaining boundaries and next steps.
 
 ## Build notes
 

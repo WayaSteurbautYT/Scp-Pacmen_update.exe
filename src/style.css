@@ -134,6 +134,14 @@ input[type="range"] { width: 88px; height: 3px; accent-color: #22d7e5; cursor: p
 .network-form input:focus { border-color: #26bdce; }
 .network-join-row button { min-width: 48px; border: 1px solid #168d9d; border-radius: 6px; background: #0d5969; color: #dffcff; cursor: pointer; font-family: "DM Mono", monospace; font-size: 8px; }
 .network-join-row button:disabled { opacity: .6; cursor: wait; }
+.account-box { display: grid; gap: 7px; margin: 9px 0; padding: 10px; border: 1px solid #273d55; border-radius: 9px; background: #081321; }
+.account-state { margin: 0 0 2px; color: #8cdce1; font-size: 10px; line-height: 1.45; }
+.account-box .field-label { font-size: 8px; }
+.account-box .team-label { margin-top: 2px; }
+.account-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 3px; }
+.account-actions button { flex: 1; min-height: 34px; padding: 7px 9px; font-family: "DM Mono", monospace; font-size: 8px; }
+.account-actions button[hidden] { display: none; }
+.account-actions button:disabled { opacity: .6; cursor: wait; }
 .network-status { margin: 5px 0 0; color: #7188a2; font-size: 9px; line-height: 1.4; }
 .online-roster { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
 .online-player { padding: 3px 6px; border: 1px solid #25465a; border-radius: 10px; color: #a9dce4; font-family: "DM Mono", monospace; font-size: 8px; }

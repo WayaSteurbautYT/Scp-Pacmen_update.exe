@@ -2,14 +2,19 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { io as createClient } from "socket.io-client";
 import { cleanName, cleanRoomCode, createRoomServer, isAllowedOrigin } from "../server/room-server.js";
+import { signAccessToken } from "../server/auth-token.js";
 import { isOpen } from "../src/maze.js";
+
+const TEST_SECRET = "integration-test-secret-with-at-least-32-characters";
+process.env.PACMAN_JWT_SECRET = TEST_SECRET;
 
 function waitFor(socket, event) {
   return new Promise((resolve) => socket.once(event, resolve));
 }
 
-async function connectClient(url) {
-  const socket = createClient(url, { transports: ["websocket"], reconnection: false });
+async function connectClient(url, username = "TestPlayer") {
+  const token = signAccessToken({ id: username, username }, TEST_SECRET);
+  const socket = createClient(url, { auth: { token }, transports: ["websocket"], reconnection: false });
   await waitFor(socket, "connect");
   return socket;
 }
@@ -25,7 +30,7 @@ test("room validation normalizes codes and rejects untrusted origins", () => {
   assert.equal(cleanName("\n "), null);
   assert.equal(isAllowedOrigin("null"), true);
   assert.equal(isAllowedOrigin("scp-pac://app"), true);
-  assert.equal(isAllowedOrigin("http://192.168.1.20:5173"), true);
+  assert.equal(isAllowedOrigin("http://192.168.1.20:5173"), false);
   assert.equal(isAllowedOrigin("https://malicious.example"), false);
   const previousOrigins = process.env.PACMAN_ALLOWED_ORIGINS;
   process.env.PACMAN_ALLOWED_ORIGINS = "https://maze.example,https://play.maze.example";
@@ -40,10 +45,14 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
   const sockets = [];
 
   try {
-    const first = await connectClient(url);
-    const second = await connectClient(url);
-    const outsider = await connectClient(url);
-    const third = await connectClient(url);
+    const anonymous = createClient(url, { transports: ["websocket"], reconnection: false });
+    const denied = await waitFor(anonymous, "connect_error");
+    assert.match(denied.message, /Login required/);
+    anonymous.close();
+    const first = await connectClient(url, "PlayerOne");
+    const second = await connectClient(url, "PlayerTwo");
+    const outsider = await connectClient(url, "Outsider");
+    const third = await connectClient(url, "PlayerThree");
     sockets.push(first, second, outsider, third);
 
     const invalid = await joinRoom(first, {
@@ -64,7 +73,7 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
 
     const firstJoined = await joinRoom(first, {
       roomCode: "TEST42",
-      name: "PlayerOne",
+      name: "SpoofedName",
       team: "pacmen",
       skin: "gold",
       createRoom: true,
@@ -83,6 +92,7 @@ test("rooms relay player state, chat, expansions, and voice signaling only to ro
       createRoom: true,
     });
     assert.equal(firstJoined.ok, true);
+    assert.equal(firstJoined.players[0].name, "PlayerOne", "the verified account name overrides the client-supplied name");
     assert.equal(secondJoined.seed, firstJoined.seed);
     assert.equal(secondJoined.players.length, 2);
     const thirdJoined = await joinRoom(third, {
